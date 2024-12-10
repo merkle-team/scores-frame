@@ -2,10 +2,36 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Warpcast',
-  description: '',
+const appUrl = process.env.NEXT_PUBLIC_URL;
+
+const frame = {
+  version: 'next',
+  imageUrl: `${appUrl}/opengraph-image`,
+  button: {
+    title: 'Warpcast Rewards',
+    action: {
+      type: 'launch_frame',
+      name: 'Warpcast Rewards',
+      url: appUrl,
+      iconImageUrl: `${appUrl}/splash.png`,
+      splashImageUrl: `${appUrl}/splash.png`,
+      splashBackgroundColor: '#000000',
+    },
+  },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'Warpcast',
+    openGraph: {
+      title: 'Warpcast',
+      description: 'Warpcast Rewards',
+    },
+    other: {
+      'fc:frame': JSON.stringify(frame),
+    },
+  };
+}
 
 // eslint-disable-next-line import/no-default-export
 export default function RootLayout({
