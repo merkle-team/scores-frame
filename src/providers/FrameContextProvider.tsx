@@ -3,14 +3,20 @@ import React from 'react';
 
 import { Loading } from '@/components/ui/loading';
 
-const FAKE_FRAME_CONTEXT = {
-  user: {
-    fid: 302,
-  },
-};
+const FAKE_FRAME_CONTEXT =
+  process.env.NODE_ENV === 'development'
+    ? {
+        user: {
+          fid: 302,
+          pfpUrl:
+            'https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=336/https%3A%2F%2Fi.imgur.com%2FYM5spql.jpg',
+        },
+      }
+    : undefined;
 
 type FrameContextProviderContextValue = {
   fid: number;
+  pfpUrl: string | undefined;
 };
 
 const FrameContextProviderContext =
@@ -50,7 +56,7 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
 
   return (
     <FrameContextProviderContext.Provider
-      value={{ fid: frameContext.user.fid }}
+      value={{ fid: frameContext.user.fid, pfpUrl: frameContext.user.pfpUrl }}
     >
       {children}
     </FrameContextProviderContext.Provider>

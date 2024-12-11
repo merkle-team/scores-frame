@@ -58,6 +58,21 @@ const usePrefetchCreatorRewards = () => {
   );
 };
 
+const usePrefetchCreatorRewardsLeaderboard = () => {
+  const qc = useQueryClient();
+
+  return useCallback(() => {
+    return qc.prefetchInfiniteQuery({
+      queryKey: ['creatorRewardsLeaderboard'],
+      queryFn: async () => {
+        const response = await api.getCreatorRewardsLeaderboard({ limit: 15 });
+        return response.data;
+      },
+      initialPageParam: undefined,
+    });
+  }, [qc]);
+};
+
 const useCreatorRewardsMetadata = () => {
   return useSuspenseQuery({
     queryKey: ['creatorRewardsMetadata'],
@@ -71,8 +86,10 @@ const useCreatorRewardsMetadata = () => {
 const useCreatorRewardsLeaderboard = () => {
   return useInfiniteQuery({
     queryKey: ['creatorRewardsLeaderboard'],
-    queryFn: async () => {
-      const response = await api.getCreatorRewardsLeaderboard({ limit: 50 });
+    queryFn: async ({ pageParam: cursor }) => {
+      const params =
+        typeof cursor !== 'undefined' ? { cursor, limit: 15 } : { limit: 15 };
+      const response = await api.getCreatorRewardsLeaderboard(params);
       return response.data;
     },
     initialPageParam: undefined,
@@ -95,5 +112,6 @@ export {
   useCreatorRewardsLeaderboard,
   useCreatorRewardsMetadata,
   usePrefetchCreatorRewards,
+  usePrefetchCreatorRewardsLeaderboard,
   usePrefetchCreatorRewardsMetadata,
 };
