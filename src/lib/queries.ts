@@ -1,7 +1,7 @@
 import {
   useInfiniteQuery,
-  useSuspenseQuery,
   useQueryClient,
+  useSuspenseQuery,
 } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
