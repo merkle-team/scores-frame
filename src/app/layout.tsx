@@ -2,6 +2,8 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 
+import { Providers } from '@/providers/Providers';
+
 const appUrl = process.env.NEXT_PUBLIC_URL;
 
 const frame = {
@@ -49,7 +51,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={'antialiased mx-4 mt-4'}>{children}</body>
+      <body className="antialiased mx-4 mt-4 flex flex-col items-center">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -10,52 +10,61 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
-import { api } from '@/lib/api';
+import { useCreatorRewards } from '@/lib/queries';
+import { useViewer } from '@/providers/FrameContextProvider';
 
 // eslint-disable-next-line import/no-default-export
 export default function Home() {
-  const [isSDKLoaded, setIsSDKLoaded] = React.useState(false);
-  const [context, setContext] = React.useState<FrameContext>();
-  const [rewards, setRewards] = React.useState<unknown>();
+  const { fid } = useViewer();
 
-  React.useEffect(() => {
-    const load = async () => {
-      const ctx: FrameContext = await sdk.context;
-      setContext(ctx);
-      sdk.actions.ready({
-        disableNativeGestures: false,
-      });
+  const { data } = useCreatorRewards({ fid });
 
-      if (typeof ctx !== 'undefined') {
-        setRewards(await api.getCreatorRewardsForUser({ fid: 302 }));
-      }
-    };
-    if (sdk && !isSDKLoaded) {
-      setIsSDKLoaded(true);
-      load();
-    }
-  }, [isSDKLoaded]);
-
-  if (!isSDKLoaded) {
-    return <div>Loading...</div>;
-  }
+  const scores = React.useMemo(() => {
+    return data.result.scores;
+  }, []);
 
   return (
-    <Card>
-      <CardHeader>Warpcast</CardHeader>
-      <CardContent>
-        {typeof context === 'undefined'
-          ? 'No frame context'
-          : JSON.stringify(context.user)}
-      </CardContent>
-      <CardContent>
-        {typeof rewards === 'undefined'
-          ? 'No frame rewards'
-          : JSON.stringify(rewards)}
-      </CardContent>
-      <CardFooter>
-        <Button>Click me</Button>
-      </CardFooter>
-    </Card>
+    <div className="w-full h-full overflow-y-scroll space-y-4 pb-16">
+      <Card>
+        <CardHeader>Warpcast</CardHeader>
+        <CardContent>FID: {scores.user.fid}</CardContent>
+        <CardContent>All Time: {scores.allTimeScore}</CardContent>
+        <CardContent>Current: {scores.currentPeriodScore}</CardContent>
+        <CardContent>Previous: {scores.previousPeriodScore}</CardContent>
+        <CardFooter>
+          <Button>Click me</Button>
+        </CardFooter>
+      </Card>
+      <Card className="opacity-50">
+        <CardHeader>Warpcast</CardHeader>
+        <CardContent>FID: {scores.user.fid}</CardContent>
+        <CardContent>All Time: {scores.allTimeScore}</CardContent>
+        <CardContent>Current: {scores.currentPeriodScore}</CardContent>
+        <CardContent>Previous: {scores.previousPeriodScore}</CardContent>
+        <CardFooter>
+          <Button>Click me</Button>
+        </CardFooter>
+      </Card>
+      <Card className="opacity-50">
+        <CardHeader>Warpcast</CardHeader>
+        <CardContent>FID: {scores.user.fid}</CardContent>
+        <CardContent>All Time: {scores.allTimeScore}</CardContent>
+        <CardContent>Current: {scores.currentPeriodScore}</CardContent>
+        <CardContent>Previous: {scores.previousPeriodScore}</CardContent>
+        <CardFooter>
+          <Button>Click me</Button>
+        </CardFooter>
+      </Card>
+      <Card className="opacity-50">
+        <CardHeader>Warpcast</CardHeader>
+        <CardContent>FID: {scores.user.fid}</CardContent>
+        <CardContent>All Time: {scores.allTimeScore}</CardContent>
+        <CardContent>Current: {scores.currentPeriodScore}</CardContent>
+        <CardContent>Previous: {scores.previousPeriodScore}</CardContent>
+        <CardFooter>
+          <Button>Click me</Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

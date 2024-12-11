@@ -315,7 +315,7 @@ class TimeoutRetryDecayManager {
 }
 
 abstract class AbstractWarpcastApiClient {
-  options: FarcasterApiClientOptions;
+  private options: FarcasterApiClientOptions;
   private defaultHeaders: RequestHeaders;
   private timeoutRetryDecayManager: TimeoutRetryDecayManager | undefined;
 
@@ -557,7 +557,7 @@ abstract class AbstractWarpcastApiClient {
     }
   }
 
-  public get baseUrl() {
+  private get baseUrl() {
     return this.options.baseUrl;
   }
 
