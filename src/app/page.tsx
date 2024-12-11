@@ -1,6 +1,5 @@
 'use client';
 
-import sdk, { FrameContext } from '@farcaster/frame-sdk';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,7 @@ export default function Home() {
 
   const scores = React.useMemo(() => {
     return data.result.scores;
-  }, []);
+  }, [data.result.scores]);
 
   return (
     <div className="w-full h-full overflow-y-scroll space-y-4 pb-16">

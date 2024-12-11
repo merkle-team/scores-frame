@@ -1,6 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { AuthedPrefetchesProvider } from './AuthedPrefetchesProvider';
 import { FrameContextProvider } from './FrameContextProvider';
 import { FrameSplashProvider } from './FrameSplashProvider';
