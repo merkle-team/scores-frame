@@ -2,6 +2,7 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 
+import { Header } from '@/components/ui/header';
 import { Providers } from '@/providers/Providers';
 
 const appUrl = process.env.NEXT_PUBLIC_URL;
@@ -24,7 +25,7 @@ const frame = {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Warpcast',
+    title: 'Warpcast Rewards',
     openGraph: {
       title: 'Warpcast',
       description: 'Warpcast Rewards',
@@ -51,8 +52,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased mx-4 mt-4 flex flex-col items-center">
-        <Providers>{children}</Providers>
+      <body className="antialiased">
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

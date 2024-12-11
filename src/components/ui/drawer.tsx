@@ -48,7 +48,22 @@ const DrawerContent = React.forwardRef<
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="55"
+        height="4"
+        viewBox="0 0 55 4"
+        fill="none"
+        className="mx-auto mt-3"
+      >
+        <path
+          opacity="0.3"
+          d="M2.25 2H52.75"
+          stroke="white"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+      </svg>
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
@@ -60,7 +75,7 @@ const DrawerHeader = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn('grid gap-1.5 p-4 text-center sm:text-left', className)}
+    className={cn('grid gap-1.5 py-4 text-center sm:text-left', className)}
     {...props}
   />
 );
@@ -84,7 +99,7 @@ const DrawerTitle = React.forwardRef<
   <DrawerPrimitive.Title
     ref={ref}
     className={cn(
-      'text-lg font-semibold leading-none tracking-tight',
+      'text-lg font-semibold leading-none tracking-tight text-left',
       className,
     )}
     {...props}

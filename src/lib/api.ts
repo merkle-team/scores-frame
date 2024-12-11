@@ -167,7 +167,9 @@ type RequestData = any;
 type EndpointName =
   | 'getCreatorRewardsForUser'
   | 'getCreatorRewardsLeaderboard'
-  | 'getCreatorRewardsMetadata';
+  | 'getCreatorRewardsMetadata'
+  | 'getCreatorRewardsEarningsHistory'
+  | 'getCreatorRewardsPeriodSummary';
 
 type Fetcher = typeof fetch;
 
@@ -644,6 +646,8 @@ abstract class AbstractWarpcastApiClient {
 
 type ApiNonNegativeInteger = number;
 
+export type ApiTimestampMillis = number;
+
 type ApiFid = number;
 
 type ApiFname = string;
@@ -670,26 +674,49 @@ interface ApiUser {
   followingCount: ApiNonNegativeInteger;
 }
 
-type ApiCreatorRewardsMetadata = {
+export type ApiCreatorRewardsMetadata = {
   lastUpdateTimestamp: ApiNonNegativeInteger;
   currentPeriodStartTimestamp: ApiNonNegativeInteger;
   currentPeriodEndTimestamp: ApiNonNegativeInteger;
 };
 
-type ApiUserCreatorRewardsScores = {
+export type ApiUserCreatorRewardsScores = {
   user: ApiUser;
   allTimeScore: ApiNonNegativeInteger;
   currentPeriodScore: ApiNonNegativeInteger;
   previousPeriodScore: ApiNonNegativeInteger;
+  currentPeriodRank?: ApiNonNegativeInteger;
 };
 
-type ApiCreatorRewardsLeaderboardUser = {
+export type ApiCreatorRewardsLeaderboardUser = {
   user: ApiUser;
   score: ApiNonNegativeInteger;
+  rank: ApiNonNegativeInteger;
 };
 
-type ApiCreatorRewardsLeaderboard = {
+export type ApiCreatorRewardsLeaderboard = {
   users: ApiCreatorRewardsLeaderboardUser[];
+};
+
+export type ApiCreatorRewardsEarnings = {
+  periodStartDate: ApiTimestampMillis;
+  periodEndDate: ApiTimestampMillis;
+  amountCents: ApiNonNegativeInteger;
+  rank: ApiNonNegativeInteger;
+  numContenders: ApiNonNegativeInteger;
+};
+
+export type ApiCreatorRewardsEarningsHistory = {
+  earnings: ApiCreatorRewardsEarnings[];
+  totalEarningsCents: ApiNonNegativeInteger;
+};
+
+export type ApiCreatorRewardsPeriodSummary = {
+  periodStartDate: ApiTimestampMillis;
+  periodEndDate: ApiTimestampMillis;
+  rewardCents: ApiNonNegativeInteger;
+  rank: ApiNonNegativeInteger;
+  score: ApiNonNegativeInteger;
 };
 
 type ApiGetCreatorRewardsMetadata200Response = {
@@ -722,6 +749,40 @@ type ApiGetCreatorRewardsLeaderboardQueryParams =
 type ApiGetCreatorRewardsLeaderboard200Response = {
   result: {
     leaderboard: ApiCreatorRewardsLeaderboard;
+  };
+  next?: {
+    cursor?: string;
+  };
+};
+
+type ApiGetCreatorRewardsEarningsHistoryQueryParamsCamelCase = {
+  fid: number;
+  cursor?: string;
+  limit: number;
+};
+type ApiGetCreatorRewardsEarningsHistoryQueryParams =
+  ApiGetCreatorRewardsEarningsHistoryQueryParamsCamelCase;
+
+type ApiGetCreatorRewardsEarningsHistory200Response = {
+  result: {
+    earnings: ApiCreatorRewardsEarningsHistory;
+  };
+  next?: {
+    cursor?: string;
+  };
+};
+
+type ApiGetCreatorRewardsPeriodSummaryQueryParamsCamelCase = {
+  fid: number;
+  cursor?: string;
+  limit: number;
+};
+type ApiGetCreatorRewardsPeriodSummaryQueryParams =
+  ApiGetCreatorRewardsPeriodSummaryQueryParamsCamelCase;
+
+type ApiGetCreatorRewardsPeriodSummary200Response = {
+  result: {
+    summary: ApiCreatorRewardsPeriodSummary;
   };
   next?: {
     cursor?: string;
@@ -777,6 +838,42 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
         headers,
         timeout,
         endpointName: 'getCreatorRewardsForUser',
+        params,
+      },
+    );
+  }
+
+  /**
+   * Get creator rewards earnings history
+   */
+  getCreatorRewardsEarningsHistory(
+    params: ApiGetCreatorRewardsEarningsHistoryQueryParams,
+    { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
+  ) {
+    return this.authedGet<ApiGetCreatorRewardsEarningsHistory200Response>(
+      '/v1/creator-rewards-earnings-history',
+      {
+        headers,
+        timeout,
+        endpointName: 'getCreatorRewardsEarningsHistory',
+        params,
+      },
+    );
+  }
+
+  /**
+   * Get creator rewards period summary
+   */
+  getCreatorRewardsPeriodSummary(
+    params: ApiGetCreatorRewardsPeriodSummaryQueryParams,
+    { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
+  ) {
+    return this.authedGet<ApiGetCreatorRewardsPeriodSummary200Response>(
+      '/v1/creator-rewards-period-summary',
+      {
+        headers,
+        timeout,
+        endpointName: 'getCreatorRewardsPeriodSummary',
         params,
       },
     );
