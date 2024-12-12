@@ -226,11 +226,11 @@ export default function Home() {
             <Pill icon="bulb" titleText="How to Earn" actionText="Learn more" />
           </Drawer.DrawerTrigger>
           <Drawer.DrawerContent aria-describedby={undefined}>
-            <div className="mx-auto w-full max-w-sm">
-              <Drawer.DrawerHeader>
+            <div className="w-full">
+              <Drawer.DrawerHeader className="mx-4">
                 <Drawer.DrawerTitle>How to Earn</Drawer.DrawerTitle>
               </Drawer.DrawerHeader>
-              <Card className="flex flex-col mb-4">
+              <Card className="flex flex-col mb-4 mx-4">
                 <div className="flex flex-row border-b p-3">
                   <CastAndEngageIcon />
                   <div className="flex flex-col ml-2 space-y-0.5">
@@ -272,11 +272,11 @@ export default function Home() {
             <Pill icon="cup" titleText="Reward Tiers" actionText="View" />
           </Drawer.DrawerTrigger>
           <Drawer.DrawerContent aria-describedby={undefined}>
-            <div className="mx-auto w-full max-w-sm">
-              <Drawer.DrawerHeader>
+            <div className="w-full">
+              <Drawer.DrawerHeader className="mx-4">
                 <Drawer.DrawerTitle>Reward Tiers</Drawer.DrawerTitle>
               </Drawer.DrawerHeader>
-              <Card className="flex flex-col mb-4">
+              <Card className="flex flex-col mb-4 mx-4">
                 <div className="flex flex-row border-b p-3">
                   <div className="flex flex-col ml-2 space-y-0.5">
                     <div className="font-semibold text-sm">

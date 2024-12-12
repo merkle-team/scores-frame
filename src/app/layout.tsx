@@ -1,5 +1,9 @@
 import './globals.css';
 
+import localFont from 'next/font/local';
+
+const InterLocalFont = localFont({ src: './Inter.woff2', display: 'block' });
+
 import type { Metadata } from 'next';
 
 import { Header } from '@/components/ui/header';
@@ -42,15 +46,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased scrollbar-vert">
+      <body
+        className={`antialiased scrollbar-vert ${InterLocalFont.className}`}
+      >
         <Providers>
           <Header />
           {children}
