@@ -11,6 +11,10 @@ const FAKE_FRAME_CONTEXT =
           pfpUrl:
             'https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=336/https%3A%2F%2Fi.imgur.com%2FYM5spql.jpg',
         },
+        client: {
+          clientFid: 9152,
+          added: false,
+        },
       }
     : undefined;
 
