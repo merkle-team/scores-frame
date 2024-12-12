@@ -91,8 +91,8 @@ function ScoreSummaryRow({
             width={30}
           />
         </Avatar>
-        <div className="flex flex-col items-start justify-center pl-3 space-y-0.5">
-          <div className="text-sm font-semibold">
+        <div className="flex flex-col items-start justify-center pl-3">
+          <div className="font-semibold">
             {user.username || `!${user.fid}`}
             {viewerRow && <span className="text-muted ml-1"> ⋅ You</span>}
           </div>

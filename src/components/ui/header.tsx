@@ -37,7 +37,9 @@ function Header() {
   return (
     <div className="w-full flex flex-row items-center justify-between p-4">
       <HeaderLogoSvg className="opacity-100" />
-      <div className="text-xl font-semibold">Warpcast Rewards</div>
+      <div className="text-xl font-semibold pt-[2px] leading-[30px] h-[30px]">
+        Warpcast Rewards
+      </div>
       <HeaderLogoSvg className="opacity-0" />
     </div>
   );
