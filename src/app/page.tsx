@@ -227,7 +227,7 @@ export default function Home() {
                 <InfoIcon />
               </div>
             </Drawer.DrawerTrigger>
-            <Drawer.DrawerContent>
+            <Drawer.DrawerContent aria-describedby="Rewards details">
               <div className="mx-auto w-full max-w-sm">
                 <Drawer.DrawerHeader>
                   <Drawer.DrawerTitle>How to Earn</Drawer.DrawerTitle>
