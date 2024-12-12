@@ -12,6 +12,8 @@ const FrameSplashProviderContext =
 
 function FrameSplashProvider({ children }: React.PropsWithChildren) {
   const dismiss = React.useCallback(async () => {
+    // eslint-disable-next-line no-console
+    console.warn('dismiss called');
     sdk.actions.ready({
       disableNativeGestures: false,
     });

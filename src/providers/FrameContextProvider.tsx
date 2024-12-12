@@ -15,6 +15,7 @@ const FAKE_FRAME_CONTEXT =
           clientFid: 9152,
           added: false,
         },
+        fakePayload: true,
       }
     : undefined;
 
@@ -49,6 +50,9 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
       checkFrameContext();
     }
   }, [checkFrameContext, frameContext]);
+
+  // eslint-disable-next-line no-console
+  console.warn({ noFrameContextFound, frameContext });
 
   if (noFrameContextFound) {
     return <Loading />;
