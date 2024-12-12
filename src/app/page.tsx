@@ -151,7 +151,7 @@ function RewardsLeaderboard() {
   return (
     <div className="flex flex-col gap-4">
       {typeof viewerScores.currentPeriodRank !== 'undefined' && (
-        <Card className="border">
+        <Card>
           <ScoreSummaryRow
             user={viewerScores.user}
             rank={viewerScores.currentPeriodRank}
@@ -222,7 +222,7 @@ export default function Home() {
       </Card>
       <div className="flex flex-row items-center justify-evenly space-x-2">
         <Drawer.Drawer>
-          <Drawer.DrawerTrigger className="w-full">
+          <Drawer.DrawerTrigger className="w-full outline-none">
             <Pill icon="bulb" titleText="How to Earn" actionText="Learn more" />
           </Drawer.DrawerTrigger>
           <Drawer.DrawerContent aria-describedby={undefined}>
@@ -268,7 +268,7 @@ export default function Home() {
           </Drawer.DrawerContent>
         </Drawer.Drawer>
         <Drawer.Drawer>
-          <Drawer.DrawerTrigger className="w-full">
+          <Drawer.DrawerTrigger className="w-full outline-none">
             <Pill icon="cup" titleText="Reward Tiers" actionText="View" />
           </Drawer.DrawerTrigger>
           <Drawer.DrawerContent aria-describedby={undefined}>
