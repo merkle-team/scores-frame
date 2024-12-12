@@ -15,10 +15,10 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 225 9.1% 65.5%;
     --muted-foreground: 225 9.1% 65.5%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+    --action: 277 45% 15.7%;
+    --action-foreground: 284 100% 67.5%;
     --border: 240 2% 23%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
