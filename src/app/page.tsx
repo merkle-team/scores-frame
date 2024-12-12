@@ -2,6 +2,11 @@
 
 import React from 'react';
 
+import {
+  CastAndEngageIcon,
+  GetRankedIcon,
+  ReceiveUSDCIcon,
+} from '@/components/core/icons';
 import { Pill } from '@/components/core/pill';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
@@ -15,11 +20,6 @@ import {
   useCreatorRewardsMetadata,
 } from '@/lib/queries';
 import { useViewer } from '@/providers/FrameContextProvider';
-import {
-  CastAndEngageIcon,
-  GetRankedIcon,
-  ReceiveUSDCIcon,
-} from '@/components/core/icons';
 
 const MIN_SCORE_FORMATTER_TARGET = 1e3;
 
