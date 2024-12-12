@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Loading } from '@/components/ui/loading';
 
-const FAKE_FRAME_CONTEXT =
+const FAKE_FRAME_CONTEXT: FrameContext | undefined =
   process.env.NODE_ENV === 'development'
     ? {
         user: {
@@ -15,6 +15,7 @@ const FAKE_FRAME_CONTEXT =
           clientFid: 9152,
           added: false,
         },
+        // @ts-ignore-next-line
         fakePayload: true,
       }
     : undefined;
@@ -38,10 +39,11 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
   const checkFrameContext = React.useCallback(async () => {
     const ctx: FrameContext = await sdk.context;
 
-    // eslint-disable-next-line no-console
-    console.warn({ ctx });
-
-    if (typeof frameContext !== 'undefined' && frameContext !== null) {
+    if (
+      typeof ctx !== 'undefined' &&
+      ctx !== null &&
+      typeof frameContext === 'undefined'
+    ) {
       setFrameContext(ctx);
     } else {
       setNoFrameContextFound(true);
@@ -53,9 +55,6 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
       checkFrameContext();
     }
   }, [checkFrameContext, frameContext]);
-
-  // eslint-disable-next-line no-console
-  console.warn({ noFrameContextFound, frameContext });
 
   if (noFrameContextFound) {
     return <Loading />;
