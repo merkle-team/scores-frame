@@ -42,4 +42,37 @@
       Segoe UI Symbol,
       Noto Color Emoji;
   }
+
+  /* Firefox-only part */
+  @-moz-document url-prefix() {
+    .scrollbar-vert,
+    .scrollbar-horz {
+      scrollbar-color: #d1d5db99 #fff;
+      scrollbar-width: thin;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .scrollbar-vert,
+      .scrollbar-horz {
+        scrollbar-color: #423466 #17101f;
+      }
+    }
+  }
+  /* End Firefox-only part */
+
+  /* Webkit-only part */
+  .scrollbar-vert::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-horz::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .scrollbar-vert::-webkit-scrollbar-thumb,
+  .scrollbar-horz::-webkit-scrollbar-thumb {
+    @apply bg-secondary;
+    border-radius: 12px;
+  }
+  /* End Webkit-only part */
 }
