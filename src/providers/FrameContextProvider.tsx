@@ -38,6 +38,9 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
   const checkFrameContext = React.useCallback(async () => {
     const ctx: FrameContext = await sdk.context;
 
+    // eslint-disable-next-line no-console
+    console.warn({ ctx });
+
     if (typeof frameContext !== 'undefined' && frameContext !== null) {
       setFrameContext(ctx);
     } else {
