@@ -5,19 +5,17 @@ import type { Metadata } from 'next';
 import { Header } from '@/components/ui/header';
 import { Providers } from '@/providers/Providers';
 
-const appUrl = process.env.NEXT_PUBLIC_URL;
-
 const frame = {
   version: 'next',
-  imageUrl: `${appUrl}/opengraph-image`,
+  imageUrl: `https://scores-frame.vercel.app/opengraph-image`,
   button: {
     title: 'Warpcast Rewards',
     action: {
       type: 'launch_frame',
       name: 'Warpcast Rewards',
-      url: appUrl,
-      iconImageUrl: `${appUrl}/splash.png`,
-      splashImageUrl: `${appUrl}/splash.png`,
+      url: 'https://scores-frame.vercel.app',
+      iconImageUrl: `https://scores-frame.vercel.app/splash.png`,
+      splashImageUrl: `https://scores-frame.vercel.app/splash.png`,
       splashBackgroundColor: '#000000',
     },
   },
