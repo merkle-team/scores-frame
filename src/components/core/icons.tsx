@@ -243,8 +243,8 @@ function ReceiveUSDCIcon() {
 
 export {
   BulbPillIcon,
-  CupPillIcon,
   CastAndEngageIcon,
+  CupPillIcon,
   GetRankedIcon,
   ReceiveUSDCIcon,
 };
