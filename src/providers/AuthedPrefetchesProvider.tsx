@@ -10,12 +10,9 @@ import {
 } from '@/lib/queries';
 
 import { useViewer } from './FrameContextProvider';
-import { useFrameSplash } from './FrameSplashProvider';
 
 function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
   const { fid } = useViewer();
-
-  const { dismiss } = useFrameSplash();
 
   const prefetchCreatorRewards = usePrefetchCreatorRewards();
   const prefetchRewardsMetadata = usePrefetchCreatorRewardsMetadata();
@@ -34,11 +31,8 @@ function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
       await new Promise((resolve) => setTimeout(resolve, 1e3 * 1.25)),
     ]);
 
-    dismiss();
-
     setReadyToLoad(true);
   }, [
-    dismiss,
     fid,
     prefetchCreatorRewards,
     prefetchCreatorRewardsLeaderboard,

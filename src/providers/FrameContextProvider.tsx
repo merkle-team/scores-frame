@@ -3,6 +3,8 @@ import React from 'react';
 
 import { Loading } from '@/components/ui/loading';
 
+import { useFrameSplash } from './FrameSplashProvider';
+
 const FAKE_FRAME_CONTEXT: FrameContext | undefined =
   process.env.NODE_ENV === 'development'
     ? {
@@ -32,6 +34,8 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
   const [noFrameContextFound, setNoFrameContextFound] =
     React.useState<boolean>(false);
 
+  const { dismiss } = useFrameSplash();
+
   const [frameContext, setFrameContext] = React.useState<
     FrameContext | undefined
   >(FAKE_FRAME_CONTEXT);
@@ -48,7 +52,9 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
     } else {
       setNoFrameContextFound(true);
     }
-  }, [frameContext]);
+
+    dismiss();
+  }, [dismiss, frameContext]);
 
   React.useEffect(() => {
     if (typeof frameContext === 'undefined') {

@@ -15,6 +15,14 @@ import {
 } from '@/lib/queries';
 import { useViewer } from '@/providers/FrameContextProvider';
 
+const MIN_SCORE_FORMATTER_TARGET = 1e3;
+
+function formatScore(score: number) {
+  return score < MIN_SCORE_FORMATTER_TARGET
+    ? `< ${MIN_SCORE_FORMATTER_TARGET.toLocaleString()}`
+    : score.toLocaleString();
+}
+
 function formatTime(ms: number) {
   const s = Math.floor(ms / 1000);
   const d = Math.floor(s / 86400);
@@ -82,7 +90,7 @@ function ScoreSummaryRow({
             {user.username || `!${user.fid}`}
             {viewerRow && <span className="text-muted ml-1"> ⋅ You</span>}
           </div>
-          <div className="text-muted text-sm">{score.toLocaleString()}</div>
+          <div className="text-muted text-sm">{formatScore(score)}</div>
         </div>
       </div>
       <div
@@ -187,7 +195,7 @@ function RewardsLeaderboard() {
           />
         </Card>
       )}
-      <Card className="overflow-y-scroll max-h-128">
+      <Card className="max-h-128">
         <List
           data={leaderboard}
           keyExtractor={keyExtractor}
@@ -218,9 +226,9 @@ export default function Home() {
   }, [rewardsMetadata.result.metadata.currentPeriodEndTimestamp]);
 
   return (
-    <div className="w-full h-full overflow-y-scroll space-y-4 pb-16 px-4">
+    <div className="w-full h-full space-y-4 py-4 px-4">
       <Card className="flex flex-col items-center px-4">
-        <div className="p-4 gap-2 flex flex-col items-center justify-center border-b w-full relative">
+        <div className="p-4 gap-2 flex flex-col items-center justify-center w-full relative">
           <Drawer.Drawer>
             <Drawer.DrawerTrigger asChild>
               <div className="right-0 top-4 absolute">
@@ -445,14 +453,13 @@ export default function Home() {
               </div>
             </Drawer.DrawerContent>
           </Drawer.Drawer>
-
           <div className="text-muted font-semibold text-sm">Your score</div>
           <div className="font-semibold text-4xl text-center">
-            {scores.currentPeriodScore.toLocaleString()}
+            {formatScore(scores.currentPeriodScore)}
           </div>
         </div>
-        {typeof scores.currentPeriodRank !== 'undefined' ? (
-          <div className="flex flex-row items-center justify-evenly w-full my-4">
+        {typeof scores.currentPeriodRank !== 'undefined' && (
+          <div className="flex flex-row items-center justify-evenly w-full mb-4 border-t pt-4">
             <div className="flex flex-col items-center justify-center w-full">
               <div className="text-muted font-semibold text-xs">Your rank</div>
               <div className="text-default font-semibold [font-variant-numeric:tabular-nums]">
@@ -470,8 +477,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        ) : (
-          <div>No rank yet</div>
         )}
       </Card>
       <div className="text-xl font-semibold">Leaderboard</div>

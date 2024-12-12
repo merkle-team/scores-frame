@@ -16,8 +16,8 @@ const client = new QueryClient({
 
 function Providers({ children }: React.PropsWithChildren) {
   return (
-    <FrameContextProvider>
-      <FrameSplashProvider>
+    <FrameSplashProvider>
+      <FrameContextProvider>
         <QueryClientProvider client={client}>
           <AuthedPrefetchesProvider>
             {/**/}
@@ -25,8 +25,8 @@ function Providers({ children }: React.PropsWithChildren) {
             {/**/}
           </AuthedPrefetchesProvider>
         </QueryClientProvider>
-      </FrameSplashProvider>
-    </FrameContextProvider>
+      </FrameContextProvider>
+    </FrameSplashProvider>
   );
 }
 
