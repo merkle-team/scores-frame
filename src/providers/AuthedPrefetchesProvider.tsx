@@ -28,7 +28,7 @@ function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
       prefetchCreatorRewardsLeaderboard(),
       // Let's at least make sure to wait for small amount of seconds
       // so the splash dismiss is not too jarring. We can always remove later.
-      await new Promise((resolve) => setTimeout(resolve, 1e3 * 1.25)),
+      await new Promise((resolve) => setTimeout(resolve, 1e3 * 2)),
     ]);
 
     setReadyToLoad(true);
