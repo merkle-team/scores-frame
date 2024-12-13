@@ -17,7 +17,7 @@ jobs:
 
   build:
     env:
-      DOCKER_IMAGE: "526236635984.dkr.ecr.us-east-1.amazonaws.com/warpcast/cloudflared:${{ github.sha }}"
+      DOCKER_IMAGE: "526236635984.dkr.ecr.us-east-1.amazonaws.com/warpcast/scores-frame:${{ github.sha }}"
     timeout-minutes: 15
     runs-on: depot-ubuntu-latest-arm
     outputs:
@@ -27,7 +27,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::526236635984:role/github-actions-workflow-warpcast-cloudflared
+          role-to-assume: arn:aws:iam::526236635984:role/github-actions-workflow-warpcast-scores-frame
           aws-region: us-east-1
       - name: Login to Amazon ECR
         id: login-ecr
@@ -46,7 +46,7 @@ jobs:
 
   deploy:
     concurrency:
-      group: deploy-cloudflared
+      group: deploy-scores-frame
       cancel-in-progress: false
     needs: build
     timeout-minutes: 10
@@ -58,5 +58,5 @@ jobs:
           git-ref: ${{ github.sha }}
           docker-image: ${{ needs.build.outputs.docker-image }}
           command: deploy
-          project: cloudflared
+          project: scores-frame
           ssh-key: ${{ secrets.STACK_DEPLOY_SSH_PRIVATE_KEY }}

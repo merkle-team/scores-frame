@@ -6,7 +6,7 @@
 
 x-shared-labels: &shared-labels
   com.datadoghq.tags.pod: ${POD_NAME}
-  com.datadoghq.tags.service: cloudflared-${POD_NAME}
+  com.datadoghq.tags.service: scores-frame-${POD_NAME}
 
 # Blank values implies values are inherited from the environment
 x-shared-env-vars: &shared-env-vars
