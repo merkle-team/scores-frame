@@ -5,11 +5,12 @@
     "signature": "MHg3MjlmOGFmM2IxMGMyZDU3NWZjMjU5OWQxOWE4NWQxZWY4ZmMzNzUyOTdhY2FhZmU4ODdlMzc5MDQ4YzVkY2RmM2Y5OWJmMDM1ZGFhNWI5NTk0M2FlNzI4MmU3MWFjNzhlNmUyZGJlMjIxNzBkZmE2ZmJhYzQzNGM1NjZmZjVlMzFi"
   },
   "frame": {
-    "version": "next",
+    "version": "0.0.1",
     "name": "Warpcast Rewards",
     "iconUrl": "https://rewards.warpcast.com/logo.png",
     "splashImageUrl": "https://rewards.warpcast.com/logo.png",
     "splashBackgroundColor": "#000000",
-    "homeUrl": "https://rewards.warpcast.com"
+    "homeUrl": "https://rewards.warpcast.com",
+    "webhookUrl": "https://client.warpcast.com/v1/creator-rewards-notifs-webhook"
   }
 }

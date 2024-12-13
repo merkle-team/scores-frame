@@ -66,7 +66,7 @@ const usePrefetchCreatorRewardsLeaderboard = () => {
     return qc.prefetchInfiniteQuery({
       queryKey: ['creatorRewardsLeaderboard'],
       queryFn: async () => {
-        const response = await api.getCreatorRewardsLeaderboard({ limit: 15 });
+        const response = await api.getCreatorRewardsLeaderboard({ limit: 30 });
         return response.data;
       },
       initialPageParam: undefined,
@@ -89,7 +89,7 @@ const useCreatorRewardsLeaderboard = () => {
     queryKey: ['creatorRewardsLeaderboard'],
     queryFn: async ({ pageParam: cursor }) => {
       const params =
-        typeof cursor !== 'undefined' ? { cursor, limit: 15 } : { limit: 15 };
+        typeof cursor !== 'undefined' ? { cursor, limit: 30 } : { limit: 30 };
       const response = await api.getCreatorRewardsLeaderboard(params);
       return response.data;
     },

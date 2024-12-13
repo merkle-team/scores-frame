@@ -1,8 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { formatScore } from '@/lib/formatters';
 import { useCreatorRewardsPeriodSummary } from '@/lib/queries';
@@ -18,9 +20,15 @@ export default function WeeklySummary() {
     return data.result.summary;
   }, [data.result.summary]);
 
+  const router = useRouter();
+
+  const onLeaderboardClick = React.useCallback(() => {
+    router.push('/');
+  }, [router]);
+
   return (
-    <div className="w-full h-full space-y-4 pt-16 px-4 grow">
-      <Card className="flex flex-col items-center p-4">
+    <div className="w-full h-full space-y-4 pt-16 grow">
+      <Card className="flex flex-col items-center p-4 mx-4">
         <Avatar className="h-[68px] w-[68px]">
           <AvatarImage
             className="object-cover"
@@ -62,6 +70,11 @@ export default function WeeklySummary() {
           )}
         </div>
       </Card>
+      <div className="fixed bottom-0 h-20 bg-background w-full items-center py-4 grid grid-cols-1 gap-4 px-4">
+        <Button onClick={onLeaderboardClick} variant={'default'}>
+          Leaderboard
+        </Button>
+      </div>
     </div>
   );
 }

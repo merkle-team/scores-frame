@@ -118,16 +118,21 @@ function RewardsLeaderboard() {
 
   const renderItem = React.useCallback(
     ({ item }: { index: number; item: ApiCreatorRewardsLeaderboardUser }) => {
+      const viewerRow = item.user.fid === fid;
+
       return (
         <ScoreSummaryRow
           user={item.user}
           rank={item.rank}
           score={item.score}
-          className={cn(item.rank !== 1 && 'border-t')}
+          className={cn(
+            item.rank !== 1 && 'border-t',
+            viewerRow && 'bg-secondary',
+          )}
         />
       );
     },
-    [],
+    [fid],
   );
 
   const keyExtractor = React.useCallback(
@@ -154,7 +159,11 @@ function RewardsLeaderboard() {
           data={leaderboard}
           keyExtractor={keyExtractor}
           renderItem={renderItem}
-          emptyView={<></>}
+          emptyView={
+            <div className="text-center text-muted w-full py-4">
+              Leaderboard will be updated soon
+            </div>
+          }
           isFetchingNextPage={isLoading || isFetchingNextPage}
           onEndReached={fetchNextPage}
         />
@@ -188,26 +197,25 @@ export default function Home() {
             {formatScore({ score: scores.currentPeriodScore })}
           </div>
         </div>
-        {typeof scores.currentPeriodRank !== 'undefined' && (
-          <div className="flex flex-row items-center justify-evenly w-full mb-4 border-t pt-4">
-            <div className="flex flex-col items-center justify-center w-full">
+
+        <div className="flex flex-row items-center justify-evenly w-full mb-4 border-t pt-4">
+          {typeof scores.currentPeriodRank !== 'undefined' && (
+            <div className="flex flex-col items-center justify-center w-full border-r">
               <div className="text-muted font-semibold text-xs">Your rank</div>
               <div className="text-default font-semibold [font-variant-numeric:tabular-nums]">
                 {scores.currentPeriodRank}
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center border-l w-full">
-              <div className="text-muted font-semibold text-xs">
-                Next drop in
-              </div>
-              <div className="text-default font-semibold [font-variant-numeric:tabular-nums]">
-                <FormattedTimeWithCountdown
-                  timestamp={currentCycleEndTimestamp}
-                />
-              </div>
+          )}
+          <div className="flex flex-col items-center justify-center w-full">
+            <div className="text-muted font-semibold text-xs">Next drop in</div>
+            <div className="text-default font-semibold [font-variant-numeric:tabular-nums]">
+              <FormattedTimeWithCountdown
+                timestamp={currentCycleEndTimestamp}
+              />
             </div>
           </div>
-        )}
+        </div>
       </Card>
       <div className="flex flex-row items-center justify-evenly space-x-2">
         <Drawer.Drawer>
