@@ -20,9 +20,9 @@ function Providers({ children }: React.PropsWithChildren) {
       <FrameContextProvider>
         <QueryClientProvider client={client}>
           <AuthedPrefetchesProvider>
-            {/**/}
+            {/* */}
             {children}
-            {/**/}
+            {/* */}
           </AuthedPrefetchesProvider>
         </QueryClientProvider>
       </FrameContextProvider>

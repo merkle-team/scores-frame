@@ -1,6 +1,7 @@
 import {
   useInfiniteQuery,
   useQueryClient,
+  useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import { useCallback } from 'react';
@@ -107,10 +108,38 @@ const useCreatorRewards = ({ fid }: { fid: number }) => {
   });
 };
 
+const useCreatorRewardsEarningHistory = ({ fid }: { fid: number }) => {
+  return useSuspenseInfiniteQuery({
+    queryKey: ['creatorRewardsEarningHistory', fid],
+    queryFn: async ({ pageParam: cursor }) => {
+      const params =
+        typeof cursor !== 'undefined'
+          ? { cursor, fid, limit: 52 }
+          : { fid, limit: 52 };
+      const response = await api.getCreatorRewardsEarningsHistory(params);
+      return response.data;
+    },
+    initialPageParam: undefined,
+    getNextPageParam: getNextPageParam,
+  });
+};
+
+const useCreatorRewardsPeriodSummary = ({ fid }: { fid: number }) => {
+  return useSuspenseQuery({
+    queryKey: ['creatorRewardsPeriodSummary', fid],
+    queryFn: async () => {
+      const response = await api.getCreatorRewardsPeriodSummary({ fid });
+      return response.data;
+    },
+  });
+};
+
 export {
   useCreatorRewards,
+  useCreatorRewardsEarningHistory,
   useCreatorRewardsLeaderboard,
   useCreatorRewardsMetadata,
+  useCreatorRewardsPeriodSummary,
   usePrefetchCreatorRewards,
   usePrefetchCreatorRewardsLeaderboard,
   usePrefetchCreatorRewardsMetadata,

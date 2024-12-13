@@ -10,8 +10,7 @@ const FAKE_FRAME_CONTEXT: FrameContext | undefined =
     ? {
         user: {
           fid: 302,
-          pfpUrl:
-            'https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=336/https%3A%2F%2Fi.imgur.com%2FYM5spql.jpg',
+          pfpUrl: 'https://i.imgur.com/YM5spql.jpg',
         },
         client: {
           clientFid: 9152,

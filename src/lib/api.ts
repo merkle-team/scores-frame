@@ -772,20 +772,15 @@ type ApiGetCreatorRewardsEarningsHistory200Response = {
   };
 };
 
-type ApiGetCreatorRewardsPeriodSummaryQueryParamsCamelCase = {
+export type ApiGetCreatorRewardsPeriodSummaryQueryParamsCamelCase = {
   fid: number;
-  cursor?: string;
-  limit: number;
 };
-type ApiGetCreatorRewardsPeriodSummaryQueryParams =
+export type ApiGetCreatorRewardsPeriodSummaryQueryParams =
   ApiGetCreatorRewardsPeriodSummaryQueryParamsCamelCase;
 
-type ApiGetCreatorRewardsPeriodSummary200Response = {
+export type ApiGetCreatorRewardsPeriodSummary200Response = {
   result: {
     summary: ApiCreatorRewardsPeriodSummary;
-  };
-  next?: {
-    cursor?: string;
   };
 };
 
