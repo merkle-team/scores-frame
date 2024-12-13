@@ -42,7 +42,7 @@ pods:
       onDemandBaseCapacity: 1
       onDemandPercentageAboveBaseCapacity: 50
     loadBalancers:
-      api:
+      app:
         type: application
         public: true
         idleTimeout: 25
