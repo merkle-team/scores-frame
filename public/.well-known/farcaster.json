@@ -2,9 +2,9 @@
   "frame": {
     "version": "next",
     "name": "Warpcast Rewards",
-    "iconUrl": "https://scores-frame.vercel.app/logo.png",
-    "splashImageUrl": "https://scores-frame.vercel.app/logo.png",
+    "iconUrl": "https://rewards.warpcast.com/logo.png",
+    "splashImageUrl": "https://rewards.warpcast.com/logo.png",
     "splashBackgroundColor": "#000000",
-    "homeUrl": "https://scores-frame.vercel.app"
+    "homeUrl": "https://rewards.warpcast.com"
   }
 }
