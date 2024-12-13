@@ -14,6 +14,7 @@ import * as Drawer from '@/components/ui/drawer';
 import { List } from '@/components/ui/list';
 import { ApiCreatorRewardsLeaderboardUser } from '@/lib/api';
 import { cn } from '@/lib/cn';
+import { formatScore } from '@/lib/formatters';
 import {
   useCreatorRewards,
   useCreatorRewardsLeaderboard,
@@ -21,25 +22,7 @@ import {
 } from '@/lib/queries';
 import { useViewer } from '@/providers/FrameContextProvider';
 
-const MIN_SCORE_FORMATTER_TARGET = 1e3;
-
-function formatScore(score: number) {
-  return score < MIN_SCORE_FORMATTER_TARGET
-    ? `< ${MIN_SCORE_FORMATTER_TARGET.toLocaleString()}`
-    : score.toLocaleString();
-}
-
-function formatTime(ms: number) {
-  const s = Math.floor(ms / 1000);
-  const d = Math.floor(s / 86400);
-  const h = Math.floor((s % 86400) / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const sec = s % 60;
-  if (d > 0) return `${d}d ${h}h`;
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
-}
-
-function RewardsTimeRemainingFormatted({ timestamp }: { timestamp: number }) {
+function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
   const [time, setTime] = React.useState(timestamp - Date.now());
 
   React.useEffect(() => {
@@ -54,7 +37,13 @@ function RewardsTimeRemainingFormatted({ timestamp }: { timestamp: number }) {
     return 'N/A';
   }
 
-  return formatTime(time);
+  const s = Math.floor(time / 1000);
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  if (d > 0) return `${d}d ${h}h`;
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
 }
 
 function ScoreSummaryRow({
@@ -96,7 +85,7 @@ function ScoreSummaryRow({
             {user.username || `!${user.fid}`}
             {viewerRow && <span className="text-muted ml-1"> ⋅ You</span>}
           </div>
-          <div className="text-muted text-sm">{formatScore(score)}</div>
+          <div className="text-muted text-sm">{formatScore({ score })}</div>
         </div>
       </div>
       <div
@@ -196,7 +185,7 @@ export default function Home() {
         <div className="p-4 gap-2 flex flex-col items-center justify-center w-full relative">
           <div className="text-muted font-semibold text-sm">Your score</div>
           <div className="font-semibold text-4xl text-center">
-            {formatScore(scores.currentPeriodScore)}
+            {formatScore({ score: scores.currentPeriodScore })}
           </div>
         </div>
         {typeof scores.currentPeriodRank !== 'undefined' && (
@@ -212,7 +201,7 @@ export default function Home() {
                 Next drop in
               </div>
               <div className="text-default font-semibold [font-variant-numeric:tabular-nums]">
-                <RewardsTimeRemainingFormatted
+                <FormattedTimeWithCountdown
                   timestamp={currentCycleEndTimestamp}
                 />
               </div>
