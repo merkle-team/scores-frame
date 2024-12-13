@@ -1,8 +1,15 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
-function HeaderLogoSvg({ className }: { className: string }) {
+function HeaderLogoSvg({
+  className,
+  onClick,
+}: {
+  className: string;
+  onClick: () => void;
+}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,6 +18,7 @@ function HeaderLogoSvg({ className }: { className: string }) {
       viewBox="0 0 30 30"
       fill="none"
       className={className}
+      onClick={onClick}
     >
       <g clipPath="url(#clip0_12351_27116)">
         <circle cx="15" cy="15" r="15" fill="#7C65C1" />
@@ -34,13 +42,19 @@ function HeaderLogoSvg({ className }: { className: string }) {
 }
 
 function Header() {
+  const router = useRouter();
+
+  const onLogoClick = React.useCallback(() => {
+    router.push('/');
+  }, [router]);
+
   return (
     <div className="w-full flex flex-row items-center justify-between p-4">
-      <HeaderLogoSvg className="opacity-100" />
+      <HeaderLogoSvg className="opacity-100" onClick={onLogoClick} />
       <div className="text-xl font-semibold pt-[2px] leading-[30px] h-[30px]">
         Warpcast Rewards
       </div>
-      <HeaderLogoSvg className="opacity-0" />
+      <div className="opacity-0 h-[30px] w-[30px]" />
     </div>
   );
 }
