@@ -30,7 +30,7 @@ x-shared-pod-options: &shared-pod-options
 pods:
   app:
     <<: *shared-pod-options
-    instanceType: t4g.micro # 2 vCPU (burst), 1GiB, ARM, up to 5 Gbit
+    instanceType: t4g.large # 2 vCPU (burst), 8GiB, ARM, up to 5 Gbit
     environment:
       STACK_DOCKER_IMAGE: # Provided by deployment process after image is built
       HEALTHCHECK_CMD: "curl -f http://localhost:3000"
