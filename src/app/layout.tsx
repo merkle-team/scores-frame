@@ -9,10 +9,10 @@ const frame = {
   version: 'next',
   imageUrl: `https://rewards.warpcast.com/og.png`,
   button: {
-    title: 'Warpcast Rewards',
+    title: 'Check Status',
     action: {
       type: 'launch_frame',
-      name: 'Check Status',
+      name: 'Warpcast Rewards',
       url: 'https://rewards.warpcast.com',
       iconImageUrl: `https://rewards.warpcast.com/splash.png`,
       splashImageUrl: `https://rewards.warpcast.com/splash.png`,
