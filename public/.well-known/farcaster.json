@@ -1,4 +1,9 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjkxNTIsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgwMmVmNzkwRGQ3OTkzQTM1ZkQ4NDdDMDUzRURkQUU5NDBEMDU1NTk2In0",
+    "payload": "eyJkb21haW4iOiJodHRwczovL3Jld2FyZHMud2FycGNhc3QuY29tLyJ9",
+    "signature": "MHg3MjlmOGFmM2IxMGMyZDU3NWZjMjU5OWQxOWE4NWQxZWY4ZmMzNzUyOTdhY2FhZmU4ODdlMzc5MDQ4YzVkY2RmM2Y5OWJmMDM1ZGFhNWI5NTk0M2FlNzI4MmU3MWFjNzhlNmUyZGJlMjIxNzBkZmE2ZmJhYzQzNGM1NjZmZjVlMzFi"
+  },
   "frame": {
     "version": "next",
     "name": "Warpcast Rewards",
