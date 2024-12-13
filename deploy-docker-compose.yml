@@ -44,7 +44,7 @@ services:
       retries: 3
 
   datadog:
-    image: public.ecr.aws/datadog/agent:7.57.2
+    image: public.ecr.aws/datadog/agent:cached
     cgroup: host
     pid: host
     network_mode: host
@@ -102,7 +102,7 @@ services:
     environment:
       AUTOHEAL_CONTAINER_LABEL: all
       AUTOHEAL_START_PERIOD: 120 # Give service time to start up (2 mins)
-    image: willfarrell/autoheal:1.1.0
+    image: willfarrell/autoheal:cached
     network_mode: none
     restart: always
     stop_signal: SIGKILL # autoheal doesn't handle signals correctly, so just kill it
