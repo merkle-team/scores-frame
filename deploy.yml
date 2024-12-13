@@ -61,7 +61,7 @@ pods:
             delay: 30
           healthCheck:
             path: "/"
-            healthyThreshhold: 2
+            healthyThreshold: 2
             unhealthyThreshold: 2
             timeout: 4
             interval: 5
