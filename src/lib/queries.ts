@@ -74,6 +74,23 @@ const usePrefetchCreatorRewardsLeaderboard = () => {
   }, [qc]);
 };
 
+const usePrefetchCreatorRewardsPeriodSummary = () => {
+  const qc = useQueryClient();
+
+  return useCallback(
+    ({ fid }: { fid: number }) => {
+      return qc.prefetchQuery({
+        queryKey: ['creatorRewardsPeriodSummary', fid],
+        queryFn: async () => {
+          const response = await api.getCreatorRewardsPeriodSummary({ fid });
+          return response.data;
+        },
+      });
+    },
+    [qc],
+  );
+};
+
 const useCreatorRewardsMetadata = () => {
   return useSuspenseQuery({
     queryKey: ['creatorRewardsMetadata'],
@@ -143,4 +160,5 @@ export {
   usePrefetchCreatorRewards,
   usePrefetchCreatorRewardsLeaderboard,
   usePrefetchCreatorRewardsMetadata,
+  usePrefetchCreatorRewardsPeriodSummary,
 };

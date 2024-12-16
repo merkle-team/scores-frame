@@ -715,8 +715,8 @@ export type ApiCreatorRewardsPeriodSummary = {
   periodStartDate: ApiTimestampMillis;
   periodEndDate: ApiTimestampMillis;
   rewardCents: ApiNonNegativeInteger;
-  rank: ApiNonNegativeInteger;
   score: ApiNonNegativeInteger;
+  rank?: ApiNonNegativeInteger;
 };
 
 type ApiGetCreatorRewardsMetadata200Response = {

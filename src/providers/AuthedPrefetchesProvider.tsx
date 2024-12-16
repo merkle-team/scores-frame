@@ -7,6 +7,7 @@ import {
   usePrefetchCreatorRewards,
   usePrefetchCreatorRewardsLeaderboard,
   usePrefetchCreatorRewardsMetadata,
+  usePrefetchCreatorRewardsPeriodSummary,
 } from '@/lib/queries';
 
 import { useViewer } from './FrameContextProvider';
@@ -18,6 +19,8 @@ function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
   const prefetchRewardsMetadata = usePrefetchCreatorRewardsMetadata();
   const prefetchCreatorRewardsLeaderboard =
     usePrefetchCreatorRewardsLeaderboard();
+  const prefetchCreatorRewardsPeriodSummary =
+    usePrefetchCreatorRewardsPeriodSummary();
 
   const [readyToLoad, setReadyToLoad] = React.useState<boolean>(false);
 
@@ -26,6 +29,7 @@ function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
       prefetchRewardsMetadata(),
       prefetchCreatorRewards({ fid }),
       prefetchCreatorRewardsLeaderboard(),
+      prefetchCreatorRewardsPeriodSummary({ fid }),
       // Let's at least make sure to wait for small amount of seconds
       // so the splash dismiss is not too jarring. We can always remove later.
       await new Promise((resolve) => setTimeout(resolve, 1e3 * 2)),
@@ -37,6 +41,7 @@ function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
     prefetchCreatorRewards,
     prefetchCreatorRewardsLeaderboard,
     prefetchRewardsMetadata,
+    prefetchCreatorRewardsPeriodSummary,
   ]);
 
   React.useEffect(() => {
