@@ -10,6 +10,33 @@ import { formatScore } from '@/lib/formatters';
 import { useCreatorRewardsPeriodSummary } from '@/lib/queries';
 import { useViewer } from '@/providers/FrameContextProvider';
 
+function FormattedDateRange({
+  startMilliseconds,
+  endMilliseconds,
+}: {
+  startMilliseconds: number;
+  endMilliseconds: number;
+}): string {
+  const start = new Date(startMilliseconds);
+  const end = new Date(endMilliseconds);
+
+  const startMonth = start.toLocaleDateString(undefined, { month: 'long' });
+  const startDay = start.getDate();
+  const startYear = start.getFullYear();
+
+  const endMonth = end.toLocaleDateString(undefined, { month: 'long' });
+  const endDay = end.getDate();
+  const endYear = end.getFullYear();
+
+  // If within the same month and year
+  if (startMonth === endMonth && startYear === endYear) {
+    return `${startMonth} ${startDay} - ${endDay}`;
+  }
+
+  // Different month or year
+  return `${startMonth} ${startDay} - ${endMonth} ${endDay}`;
+}
+
 // eslint-disable-next-line import/no-default-export
 export default function WeeklySummary() {
   const { fid, pfpUrl } = useViewer();
@@ -39,7 +66,7 @@ export default function WeeklySummary() {
           />
         </Avatar>
         <div className="gap-2 flex flex-col items-center justify-center w-full relative my-4">
-          <div className="text-muted text-sm">This week you scored</div>
+          <div className="text-muted text-sm">Your weekly score</div>
           <div className="font-semibold text-4xl text-center">
             {formatScore({ score: weeklySummary.score })}
           </div>
@@ -48,12 +75,19 @@ export default function WeeklySummary() {
           <div className="flex flex-row items-center py-2 w-full justify-between">
             <div className="text-muted text-sm">Ranking</div>
             <div className="text-right font-semibold [font-variant-numeric:tabular-nums]">
-              {weeklySummary.rank}
+              {typeof weeklySummary.rank === 'undefined'
+                ? 'N/A'
+                : weeklySummary.rank}
             </div>
           </div>
           <div className="flex flex-row items-center py-2 border-t w-full justify-between">
             <div className="text-muted text-sm">Week</div>
-            <div className="text-right font-semibold">{weeklySummary.rank}</div>
+            <div className="text-right font-semibold">
+              <FormattedDateRange
+                startMilliseconds={weeklySummary.periodStartDate}
+                endMilliseconds={weeklySummary.periodEndDate}
+              />
+            </div>
           </div>
           {weeklySummary.rewardCents > 0 && (
             <div className="flex flex-row items-center py-2 border-t w-full justify-between">

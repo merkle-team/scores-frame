@@ -9,8 +9,9 @@ const FAKE_FRAME_CONTEXT: FrameContext | undefined =
   process.env.NODE_ENV === 'development'
     ? {
         user: {
-          fid: 302,
-          pfpUrl: 'https://i.imgur.com/YM5spql.jpg',
+          fid: 1287,
+          pfpUrl:
+            'https://i.seadn.io/gcs/files/ed56e6b9a1b22720ce7490524db333e0.jpg?w=500&auto=format',
         },
         client: {
           clientFid: 9152,
