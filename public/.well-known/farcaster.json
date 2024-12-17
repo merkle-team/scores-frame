@@ -8,7 +8,7 @@
     "version": "1",
     "name": "Warpcast Rewards",
     "imageUrl": "https://rewards.warpcast.com/og.png",
-    "buttonTitle": "Check Status",
+    "buttonTitle": "Launch",
     "iconUrl": "https://rewards.warpcast.com/app.png",
     "splashImageUrl": "https://rewards.warpcast.com/logo.png",
     "splashBackgroundColor": "#000000",
