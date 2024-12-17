@@ -209,7 +209,6 @@ export interface FarcasterApiClientOptions {
   readonly baseUrl?: string;
   readonly fetch?: Fetcher;
   readonly getAuthToken?: () => Promise<AuthToken>;
-  readonly meta?: FarcasterApiClientMetaOptions;
   readonly mutateTimeout?: number;
   readonly onError?: OnError;
   readonly onFetchStart?: OnFetchStart;
@@ -218,16 +217,6 @@ export interface FarcasterApiClientOptions {
   readonly readTimeout?: number;
   readonly timeoutRetryDecayFactor?: number;
   readonly checkOffline?: () => Promise<boolean>;
-}
-
-export interface FarcasterApiClientMetaOptions {
-  readonly address?: string;
-  readonly deviceId?: string; // e.g. 125425b3-aaff-445f-82cd-25dd1e619a62
-  readonly deviceModel?: string; // e.g. iPhone 12 Pro Max
-  readonly deviceOs?: string; // e.g. ios
-  readonly fid?: number;
-  readonly nativeApplicationVersion?: string; // e.g. 0.0.22
-  readonly nativeBuildVersion?: string; // e.g. 90
 }
 
 export interface FetchOptions {
@@ -271,7 +260,6 @@ const getDefaultOptions = () => ({
   fetch: globalFetch,
   readTimeout: defaultReadTimeout,
   mutateTimeout: defaultMutateTimeout,
-  meta: {},
 });
 
 const generateIdempotencyKey = () => {
@@ -331,17 +319,8 @@ abstract class AbstractWarpcastApiClient {
       ? new TimeoutRetryDecayManager(options.timeoutRetryDecayFactor)
       : undefined;
 
-    const meta = options.meta || {};
-
     this.defaultHeaders = {
       'Content-Type': 'application/json; charset=utf-8',
-      'FC-ADDRESS': meta.address || '',
-      'FC-DEVICE-OS': meta.deviceOs || '', // e.g. ios
-      'FC-FID': meta.fid ? String(meta.fid) : '',
-      'FC-DEVICE-ID': meta.deviceId || '', // e.g. 125425b3-aaff-445f-82cd-25dd1e619a62
-      'FC-DEVICE-MODEL': meta.deviceModel || '', // e.g. iPhone 12 Pro Max
-      'FC-NATIVE-BUILD-VERSION': meta.nativeBuildVersion || '', // e.g. 90
-      'FC-NATIVE-APPLICATION-VERSION': meta.nativeApplicationVersion || '', // e.g. 0.0.22
     };
 
     for (const key in this.defaultHeaders) {
