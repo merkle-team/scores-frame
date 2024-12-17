@@ -42,8 +42,7 @@ function ScoreSummaryRow({
       </div>
       <div
         className={cn(
-          'w-8 text-center font-semibold [font-variant-numeric:tabular-nums]',
-          rank >= 100 && 'text-xs',
+          'w-max text-center font-semibold [font-variant-numeric:tabular-nums]',
         )}
       >
         #{rank}
