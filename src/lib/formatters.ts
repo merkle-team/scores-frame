@@ -1,4 +1,4 @@
-const MIN_SCORE_FORMATTER_TARGET = 1e3;
+const MIN_SCORE_FORMATTER_TARGET = 1e3 / 2;
 
 function formatScore({ score }: { score: number }) {
   return score < MIN_SCORE_FORMATTER_TARGET
