@@ -12,7 +12,7 @@ const frame = {
     title: 'Launch',
     action: {
       type: 'launch_frame',
-      name: 'Warpcast Rewards',
+      name: 'Rewards',
       url: 'https://rewards.warpcast.com',
       iconImageUrl: `https://rewards.warpcast.com/splash.png`,
       splashImageUrl: `https://rewards.warpcast.com/splash.png`,
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: 'Warpcast Rewards',
     openGraph: {
       title: 'Warpcast',
-      description: 'Warpcast Rewards',
+      description: 'Rewards',
       images: `https://rewards.warpcast.com/og.png`,
     },
     other: {
