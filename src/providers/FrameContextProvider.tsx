@@ -1,4 +1,4 @@
-import sdk, { FrameContext } from '@farcaster/frame-sdk';
+import sdk, { FrameContext, SafeAreaInsets } from '@farcaster/frame-sdk';
 import React from 'react';
 
 import { Loading } from '@/components/ui/loading';
@@ -25,6 +25,7 @@ const FAKE_FRAME_CONTEXT: FrameContext | undefined =
 type FrameContextProviderContextValue = {
   fid: number;
   pfpUrl: string | undefined;
+  safeAreaInsets?: SafeAreaInsets
 };
 
 const FrameContextProviderContext =
@@ -72,7 +73,7 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
 
   return (
     <FrameContextProviderContext.Provider
-      value={{ fid: frameContext.user.fid, pfpUrl: frameContext.user.pfpUrl }}
+      value={{ fid: frameContext.user.fid, pfpUrl: frameContext.user.pfpUrl, safeAreaInsets: frameContext.client.safeAreaInsets }}
     >
       {children}
     </FrameContextProviderContext.Provider>
