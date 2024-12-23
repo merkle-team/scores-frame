@@ -6,6 +6,7 @@ import React from 'react';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/cn';
 import { formatScore } from '@/lib/formatters';
 import { useCreatorRewardsPeriodSummary } from '@/lib/queries';
 import { useFrameContext } from '@/providers/FrameContextProvider';
@@ -73,11 +74,16 @@ export default function WeeklySummary() {
         </div>
         <div className="gap-2 flex flex-col items-center justify-center w-full relative">
           <div className="flex flex-row items-center py-2 w-full justify-between">
-            <div className="text-muted text-sm">Ranking</div>
-            <div className="text-right font-semibold [font-variant-numeric:tabular-nums]">
+            <div className="text-muted text-sm">Your rank</div>
+            <div
+              className={cn(
+                'text-right font-semibold [font-variant-numeric:tabular-nums]',
+                typeof weeklySummary.rank === 'undefined' && 'text-muted',
+              )}
+            >
               {typeof weeklySummary.rank === 'undefined'
-                ? 'N/A'
-                : weeklySummary.rank}
+                ? 'Unranked'
+                : `#${weeklySummary.rank}`}
             </div>
           </div>
           <div className="flex flex-row items-center py-2 border-t w-full justify-between">
@@ -91,7 +97,7 @@ export default function WeeklySummary() {
           </div>
           {weeklySummary.rewardCents > 0 && (
             <div className="flex flex-row items-center py-2 border-t w-full justify-between">
-              <div className="text-muted text-sm">Reward</div>
+              <div className="text-muted text-sm">Rewards</div>
               <div className="text-right font-semibold [font-variant-numeric:tabular-nums] text-[#43B748]">
                 {new Intl.NumberFormat('en-US', {
                   style: 'currency',
