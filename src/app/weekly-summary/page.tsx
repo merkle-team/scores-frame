@@ -82,7 +82,7 @@ export default function WeeklySummary() {
               )}
             >
               {typeof weeklySummary.rank === 'undefined'
-                ? 'Unranked'
+                ? 'None'
                 : `#${weeklySummary.rank}`}
             </div>
           </div>
