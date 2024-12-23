@@ -40,7 +40,7 @@ function FormattedDateRange({
 
 // eslint-disable-next-line import/no-default-export
 export default function WeeklySummary() {
-  const { fid, pfpUrl } = useFrameContext();
+  const { fid, pfpUrl, safeAreaInsets } = useFrameContext();
 
   const { data } = useCreatorRewardsPeriodSummary({ fid });
 
@@ -110,7 +110,17 @@ export default function WeeklySummary() {
           )}
         </div>
       </Card>
-      <div className="fixed bottom-0 h-20 bg-background w-full items-center py-4 grid grid-cols-1 gap-4 px-4">
+      <div
+        className="fixed bottom-0 h-20 w-full items-center py-4 grid grid-cols-1 gap-4 px-4"
+        style={
+          // FIXME: Don't like we have to do this and would've preferred the general wrapper
+          // of the safe area is sufficient enough but have to go with this for now for the
+          // design we have on this page.
+          typeof safeAreaInsets === 'undefined'
+            ? undefined
+            : { paddingBottom: safeAreaInsets.bottom }
+        }
+      >
         <Button onClick={onLeaderboardClick} variant={'default'}>
           Leaderboard
         </Button>
