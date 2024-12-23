@@ -8,7 +8,7 @@ type FrameSplashProviderContextValue = {
 };
 
 const FrameSplashProviderContext =
-  React.createContext<FrameSplashProviderContextValue>([] as never);
+  React.createContext<FrameSplashProviderContextValue>({} as never);
 
 function FrameSplashProvider({ children }: React.PropsWithChildren) {
   const dismiss = React.useCallback(async () => {

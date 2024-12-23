@@ -14,7 +14,7 @@ import {
   useCreatorRewardsMetadata,
   useCreatorRewardsPeriodSummary,
 } from '@/lib/queries';
-import { useViewer } from '@/providers/FrameContextProvider';
+import { useFrameContext } from '@/providers/FrameContextProvider';
 
 function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
   const [time, setTime] = React.useState(timestamp - Date.now());
@@ -42,7 +42,7 @@ function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
 
 // eslint-disable-next-line import/no-default-export
 export default function Home() {
-  const { fid, safeAreaInsets } = useViewer();
+  const { fid } = useFrameContext();
 
   const { data: rewardsMetadata } = useCreatorRewardsMetadata();
 
@@ -69,12 +69,7 @@ export default function Home() {
   }, [lastWeeksSummary.rank]);
 
   return (
-    <div className="w-full h-full space-y-4 pb-4 px-4" style={safeAreaInsets ? {
-      paddingTop: safeAreaInsets.top,
-      paddingBottom: safeAreaInsets.bottom,
-      paddingLeft: safeAreaInsets.left,
-      paddingRight: safeAreaInsets.right,
-    } : {}}>
+    <div className="w-full h-full space-y-4 pb-4 px-4">
       <Card className="flex flex-col items-center px-4">
         <div className="p-4 gap-2 flex flex-col items-center justify-center w-full relative">
           <div className="text-muted font-semibold text-sm">Your score</div>

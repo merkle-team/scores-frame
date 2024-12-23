@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { formatScore } from '@/lib/formatters';
 import { useCreatorRewardsPeriodSummary } from '@/lib/queries';
-import { useViewer } from '@/providers/FrameContextProvider';
+import { useFrameContext } from '@/providers/FrameContextProvider';
 
 function FormattedDateRange({
   startMilliseconds,
@@ -39,7 +39,7 @@ function FormattedDateRange({
 
 // eslint-disable-next-line import/no-default-export
 export default function WeeklySummary() {
-  const { fid, pfpUrl } = useViewer();
+  const { fid, pfpUrl } = useFrameContext();
 
   const { data } = useCreatorRewardsPeriodSummary({ fid });
 

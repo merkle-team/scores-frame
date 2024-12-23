@@ -10,10 +10,10 @@ import {
   usePrefetchCreatorRewardsPeriodSummary,
 } from '@/lib/queries';
 
-import { useViewer } from './FrameContextProvider';
+import { useFrameContext } from './FrameContextProvider';
 
 function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
-  const { fid } = useViewer();
+  const { fid } = useFrameContext();
 
   const prefetchCreatorRewards = usePrefetchCreatorRewards();
   const prefetchRewardsMetadata = usePrefetchCreatorRewardsMetadata();
