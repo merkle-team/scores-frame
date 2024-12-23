@@ -25,11 +25,11 @@ const FAKE_FRAME_CONTEXT: FrameContext | undefined =
 type FrameContextProviderContextValue = {
   fid: number;
   pfpUrl: string | undefined;
-  safeAreaInsets?: SafeAreaInsets
+  safeAreaInsets?: SafeAreaInsets;
 };
 
 const FrameContextProviderContext =
-  React.createContext<FrameContextProviderContextValue>([] as never);
+  React.createContext<FrameContextProviderContextValue>({} as never);
 
 function FrameContextProvider({ children }: React.PropsWithChildren) {
   const [noFrameContextFound, setNoFrameContextFound] =
@@ -73,14 +73,18 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
 
   return (
     <FrameContextProviderContext.Provider
-      value={{ fid: frameContext.user.fid, pfpUrl: frameContext.user.pfpUrl, safeAreaInsets: frameContext.client.safeAreaInsets }}
+      value={{
+        fid: frameContext.user.fid,
+        pfpUrl: frameContext.user.pfpUrl,
+        safeAreaInsets: frameContext.client.safeAreaInsets,
+      }}
     >
       {children}
     </FrameContextProviderContext.Provider>
   );
 }
 
-export const useViewer = () => {
+export const useFrameContext = () => {
   return React.useContext(FrameContextProviderContext);
 };
 

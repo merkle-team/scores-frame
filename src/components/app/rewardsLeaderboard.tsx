@@ -3,14 +3,14 @@ import React from 'react';
 import { ApiCreatorRewardsLeaderboardUser } from '@/lib/api';
 import { cn } from '@/lib/cn';
 import { useCreatorRewards, useCreatorRewardsLeaderboard } from '@/lib/queries';
-import { useViewer } from '@/providers/FrameContextProvider';
+import { useFrameContext } from '@/providers/FrameContextProvider';
 
 import { Card } from '../ui/card';
 import { List } from '../ui/list';
 import { ScoreSummaryRow } from './scoreSummaryRow';
 
 function RewardsLeaderboard() {
-  const { fid } = useViewer();
+  const { fid } = useFrameContext();
 
   const { data: creatorRewardsData } = useCreatorRewards({ fid });
 
