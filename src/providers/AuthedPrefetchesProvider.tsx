@@ -13,7 +13,7 @@ import {
 import { useFrameContext } from './FrameContextProvider';
 
 function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
-  const { fid } = useFrameContext();
+  const { fid, safeAreaInsets } = useFrameContext();
 
   const prefetchCreatorRewards = usePrefetchCreatorRewards();
   const prefetchRewardsMetadata = usePrefetchCreatorRewardsMetadata();
@@ -49,7 +49,7 @@ function AuthedPrefetchesProvider({ children }: React.PropsWithChildren) {
   }, [prefetch]);
 
   if (!readyToLoad) {
-    return <Loading />;
+    return <Loading safeAreaInsets={safeAreaInsets} />;
   }
 
   return children;
