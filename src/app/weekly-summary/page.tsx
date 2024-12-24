@@ -118,7 +118,7 @@ export default function WeeklySummary() {
           // design we have on this page.
           typeof safeAreaInsets === 'undefined'
             ? undefined
-            : { paddingBottom: safeAreaInsets.bottom }
+            : { paddingBottom: safeAreaInsets.bottom * 2.25 }
         }
       >
         <Button onClick={onLeaderboardClick} variant={'default'}>

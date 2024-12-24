@@ -64,11 +64,11 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
   }, [checkFrameContext, frameContext]);
 
   if (noFrameContextFound) {
-    return <Loading />;
+    return <Loading safeAreaInsets={undefined} />;
   }
 
   if (typeof frameContext === 'undefined') {
-    return <Loading />;
+    return <></>;
   }
 
   return (

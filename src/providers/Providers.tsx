@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { AuthedPrefetchesProvider } from './AuthedPrefetchesProvider';
 import { FrameContextProvider } from './FrameContextProvider';
-import { FrameSafeAreaProvider } from './FrameSafeAreaProvider';
 import { FrameSplashProvider } from './FrameSplashProvider';
 
 const client = new QueryClient({
@@ -19,15 +18,13 @@ function Providers({ children }: React.PropsWithChildren) {
   return (
     <FrameSplashProvider>
       <FrameContextProvider>
-        <FrameSafeAreaProvider>
-          <QueryClientProvider client={client}>
-            <AuthedPrefetchesProvider>
-              {/* */}
-              {children}
-              {/* */}
-            </AuthedPrefetchesProvider>
-          </QueryClientProvider>
-        </FrameSafeAreaProvider>
+        <QueryClientProvider client={client}>
+          <AuthedPrefetchesProvider>
+            {/* */}
+            {children}
+            {/* */}
+          </AuthedPrefetchesProvider>
+        </QueryClientProvider>
       </FrameContextProvider>
     </FrameSplashProvider>
   );
