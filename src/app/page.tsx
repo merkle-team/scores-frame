@@ -42,7 +42,7 @@ function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
 
 // eslint-disable-next-line import/no-default-export
 export default function Home() {
-  const { fid } = useFrameContext();
+  const { fid, safeAreaInsets } = useFrameContext();
 
   const { data: rewardsMetadata } = useCreatorRewardsMetadata();
 
@@ -69,7 +69,17 @@ export default function Home() {
   }, [lastWeeksSummary.rank]);
 
   return (
-    <div className="w-full h-full space-y-4 pb-4 px-4">
+    <div
+      className="w-full h-full space-y-4 pb-4 px-4"
+      style={
+        // FIXME: Don't like we have to do this and would've preferred the general wrapper
+        // of the safe area is sufficient enough but have to go with this for now for the
+        // design we have on this page.
+        typeof safeAreaInsets === 'undefined'
+          ? undefined
+          : { paddingBottom: safeAreaInsets.bottom * 2.25 }
+      }
+    >
       <Card className="flex flex-col items-center px-4">
         <div className="p-4 gap-2 flex flex-col items-center justify-center w-full relative">
           <div className="text-muted font-semibold text-sm">Your score</div>
