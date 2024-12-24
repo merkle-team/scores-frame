@@ -65,8 +65,11 @@ export default function Home() {
   }, [creatorRewardsPeriodSummary.result.summary]);
 
   const lastWeeksSummaryPillVisible = React.useMemo(() => {
-    return typeof lastWeeksSummary.rank !== 'undefined';
-  }, [lastWeeksSummary.rank]);
+    return (
+      typeof lastWeeksSummary.score !== 'undefined' &&
+      lastWeeksSummary.score > 0
+    );
+  }, [lastWeeksSummary.score]);
 
   return (
     <div
