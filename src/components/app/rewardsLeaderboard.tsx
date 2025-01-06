@@ -10,7 +10,7 @@ import { List } from '../ui/list';
 import { ScoreSummaryRow } from './scoreSummaryRow';
 
 function RewardsLeaderboard() {
-  const { fid } = useFrameContext();
+  const { fid, triggerViewProfile } = useFrameContext();
 
   const { data: creatorRewardsData } = useCreatorRewards({ fid });
 
@@ -39,10 +39,11 @@ function RewardsLeaderboard() {
             viewerRow && 'bg-secondary',
             viewerRow && item.rank === 1 && 'rounded-t-lg',
           )}
+          onClick={triggerViewProfile}
         />
       );
     },
-    [fid],
+    [fid, triggerViewProfile],
   );
 
   const keyExtractor = React.useCallback(
@@ -61,6 +62,11 @@ function RewardsLeaderboard() {
             rank={viewerScores.currentPeriodRank}
             score={viewerScores.currentPeriodScore}
             className={undefined}
+            onClick={() => {
+              // Kinda probably weird to trigger this on self row click but
+              // let's do it anyway so its a consistent experience.
+              triggerViewProfile({ fid: viewerScores.user.fid });
+            }}
           />
         </Card>
       )}

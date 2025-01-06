@@ -12,18 +12,25 @@ function ScoreSummaryRow({
   score,
   rank,
   className,
+  onClick,
 }: {
   user: User;
   score: number;
   rank: number;
   className: string | undefined;
+  onClick: (({ fid }: { fid: number }) => void) | undefined;
 }) {
+  const onRowClick = React.useCallback(() => {
+    onClick?.({ fid: user.fid });
+  }, [onClick, user.fid]);
+
   return (
     <div
       className={cn(
         'flex flex-row items-center justify-between py-2 px-3',
         className,
       )}
+      onClick={onRowClick}
     >
       <div className="flex flex-row items-center">
         <Avatar className="h-[30px] w-[30px]">
