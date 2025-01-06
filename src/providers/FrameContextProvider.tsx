@@ -1,7 +1,8 @@
-import sdk, { FrameContext, SafeAreaInsets } from '@farcaster/frame-sdk';
+import sdk from '@farcaster/frame-sdk';
 import React from 'react';
 
 import { Loading } from '@/components/ui/loading';
+import type { FrameContext, SafeAreaInsets } from '@/lib/types';
 
 import { useFrameSplash } from './FrameSplashProvider';
 
@@ -26,6 +27,7 @@ type FrameContextProviderContextValue = {
   fid: number;
   pfpUrl: string | undefined;
   safeAreaInsets?: SafeAreaInsets;
+  triggerViewProfile: ({ fid }: { fid: number }) => void;
 };
 
 const FrameContextProviderContext =
@@ -57,6 +59,18 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
     dismiss();
   }, [dismiss, frameContext]);
 
+  const triggerViewProfile = React.useCallback(
+    ({ fid }: { fid: number }) => {
+      if (
+        typeof frameContext !== 'undefined' &&
+        typeof sdk.actions.viewProfile === 'function'
+      ) {
+        sdk.actions.viewProfile({ fid });
+      }
+    },
+    [frameContext],
+  );
+
   React.useEffect(() => {
     if (typeof frameContext === 'undefined') {
       checkFrameContext();
@@ -77,6 +91,7 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
         fid: frameContext.user.fid,
         pfpUrl: frameContext.user.pfpUrl,
         safeAreaInsets: frameContext.client.safeAreaInsets,
+        triggerViewProfile: triggerViewProfile,
       }}
     >
       {children}
