@@ -66,10 +66,11 @@ export default function Home() {
 
   const lastWeeksSummaryPillVisible = React.useMemo(() => {
     return (
+      typeof lastWeeksSummary.rank !== 'undefined' &&
       typeof lastWeeksSummary.score !== 'undefined' &&
       lastWeeksSummary.score > 0
     );
-  }, [lastWeeksSummary.score]);
+  }, [lastWeeksSummary.rank, lastWeeksSummary.score]);
 
   return (
     <div
