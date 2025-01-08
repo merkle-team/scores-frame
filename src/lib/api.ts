@@ -653,10 +653,16 @@ interface ApiUser {
   followingCount: ApiNonNegativeInteger;
 }
 
+export type ApiCreatorRewardTier = {
+  size: number;
+  rewardCents: number;
+};
+
 export type ApiCreatorRewardsMetadata = {
   lastUpdateTimestamp: ApiNonNegativeInteger;
   currentPeriodStartTimestamp: ApiNonNegativeInteger;
   currentPeriodEndTimestamp: ApiNonNegativeInteger;
+  tiers: ApiCreatorRewardTier[];
 };
 
 export type ApiUserCreatorRewardsScores = {

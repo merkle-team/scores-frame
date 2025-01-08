@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { AuthedPrefetchesProvider } from './AuthedPrefetchesProvider';
+import { CreatorRewardsMetadataProvider } from './CreatorRewardsMetadataProvider';
 import { FrameContextProvider } from './FrameContextProvider';
 import { FrameSplashProvider } from './FrameSplashProvider';
 
@@ -20,9 +21,11 @@ function Providers({ children }: React.PropsWithChildren) {
       <FrameContextProvider>
         <QueryClientProvider client={client}>
           <AuthedPrefetchesProvider>
-            {/* */}
-            {children}
-            {/* */}
+            <CreatorRewardsMetadataProvider>
+              {/* */}
+              {children}
+              {/* */}
+            </CreatorRewardsMetadataProvider>
           </AuthedPrefetchesProvider>
         </QueryClientProvider>
       </FrameContextProvider>

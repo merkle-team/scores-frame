@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as Drawer from '@/components/ui/drawer';
+import { useCreatorRewardsMetadata } from '@/providers/CreatorRewardsMetadataProvider';
 
 import {
   CastAndEngageIcon,
@@ -11,6 +12,8 @@ import { BottomSheetTriggerPill } from '../core/pill';
 import { Card } from '../ui/card';
 
 function HowToEarnPill() {
+  const { totalSize } = useCreatorRewardsMetadata();
+
   return (
     <Drawer.Drawer>
       <Drawer.DrawerTrigger className="w-full outline-none">
@@ -36,11 +39,11 @@ function HowToEarnPill() {
               <GetRankedIcon />
               <div className="flex flex-col ml-2 space-y-0.5">
                 <div className="font-semibold text-sm">
-                  {'Get Ranked -> Top 400'}
+                  {`Get Ranked -> Top ${totalSize}`}
                 </div>
                 <div className="text-muted text-sm">
-                  Each week, the top 400 accounts with the highest scores
-                  receive USDC rewards.
+                  Each week, the top {totalSize} accounts with the highest
+                  scores receive USDC rewards.
                 </div>
               </div>
             </div>

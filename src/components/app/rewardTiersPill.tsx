@@ -1,11 +1,15 @@
 import React from 'react';
 
 import * as Drawer from '@/components/ui/drawer';
+import { cn } from '@/lib/cn';
+import { useCreatorRewardsMetadata } from '@/providers/CreatorRewardsMetadataProvider';
 
 import { BottomSheetTriggerPill } from '../core/pill';
 import { Card } from '../ui/card';
 
 function RewardTiersPill() {
+  const { tiers } = useCreatorRewardsMetadata();
+
   return (
     <Drawer.Drawer>
       <Drawer.DrawerTrigger className="w-full outline-none">
@@ -17,36 +21,23 @@ function RewardTiersPill() {
             <Drawer.DrawerTitle>Reward Tiers</Drawer.DrawerTitle>
           </Drawer.DrawerHeader>
           <Card className="flex flex-col mb-4 mx-4">
-            <div className="flex flex-row border-b p-3">
-              <div className="flex flex-col ml-2 space-y-0.5">
-                <div className="font-semibold text-sm">Tier 1 – $270 Prize</div>
-                <div className="text-muted text-sm">Top 5 winners</div>
-              </div>
-            </div>
-            <div className="flex flex-row border-b p-3">
-              <div className="flex flex-col ml-2 space-y-0.5">
-                <div className="font-semibold text-sm">Tier 2 – $70 Prize</div>
-                <div className="text-muted text-sm">Next 20 winners</div>
-              </div>
-            </div>
-            <div className="flex flex-row border-b p-3">
-              <div className="flex flex-col ml-2 space-y-0.5">
-                <div className="font-semibold text-sm">Tier 3 – $30 Prize</div>
-                <div className="text-muted text-sm">Next 75 winners</div>
-              </div>
-            </div>
-            <div className="flex flex-row border-b p-3">
-              <div className="flex flex-col ml-2 space-y-0.5">
-                <div className="font-semibold text-sm">Tier 4 – $20 Prize</div>
-                <div className="text-muted text-sm">Next 100 winners</div>
-              </div>
-            </div>
-            <div className="flex flex-row p-3">
-              <div className="flex flex-col ml-2 space-y-0.5">
-                <div className="font-semibold text-sm">Tier 5 – $10 Prize</div>
-                <div className="text-muted text-sm">Next 300 winners</div>
-              </div>
-            </div>
+            {tiers.map((tier, index) => {
+              return (
+                <div
+                  key={index}
+                  className={cn('flex flex-row p-3', index !== 0 && 'border-t')}
+                >
+                  <div className="flex flex-col ml-2 space-y-0.5">
+                    <div className="font-semibold text-sm">
+                      Tier {index + 1} – ${tier.rewardCents / 100} Prize
+                    </div>
+                    <div className="text-muted text-sm">
+                      {index === 0 ? 'Top' : 'Next'} {tier.size} winners
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </Card>
         </div>
       </Drawer.DrawerContent>

@@ -38,7 +38,12 @@ module.exports = {
         paths: [
           {
             name: 'lodash',
-            message: 'Import [module] from lodash/[module] instead',
+            message: 'Import [module] from lodash/[module] instead.',
+          },
+          {
+            name: '@/lib/queries',
+            importNames: ['useCreatorRewardsMetadata'],
+            message: 'Please use the provider wrapped metadata helper instead.',
           },
         ],
       },
