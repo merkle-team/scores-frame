@@ -7,7 +7,7 @@ import { BulbPillIcon, CupPillIcon } from './icons';
 
 function PillWrapper({ children }: React.PropsWithChildren) {
   return (
-    <Card className="flex flex-row space-x-2 items-center p-3 px-4 h-16">
+    <Card className="flex flex-row space-x-2 items-center p-3 px-4 h-16 cursor-pointer">
       {children}
     </Card>
   );
