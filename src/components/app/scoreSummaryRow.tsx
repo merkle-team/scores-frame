@@ -28,7 +28,8 @@ function ScoreSummaryRow({
     <div
       className={cn(
         'flex flex-row items-center justify-between py-2 px-3',
-        typeof onClick === 'function' && 'cursor-pointer',
+        typeof onClick !== 'undefined' &&
+          'cursor-pointer active:bg-background/30',
         className,
       )}
       onClick={onRowClick}
