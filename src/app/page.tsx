@@ -11,9 +11,9 @@ import { cn } from '@/lib/cn';
 import { formatScore } from '@/lib/formatters';
 import {
   useCreatorRewards,
-  useCreatorRewardsMetadata,
   useCreatorRewardsPeriodSummary,
 } from '@/lib/queries';
+import { useCreatorRewardsMetadata } from '@/providers/CreatorRewardsMetadataProvider';
 import { useFrameContext } from '@/providers/FrameContextProvider';
 
 function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
@@ -44,7 +44,7 @@ function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
 export default function Home() {
   const { fid, safeAreaInsets } = useFrameContext();
 
-  const { data: rewardsMetadata } = useCreatorRewardsMetadata();
+  const { currentCycleEndTimestamp } = useCreatorRewardsMetadata();
 
   const { data } = useCreatorRewards({ fid });
 
@@ -55,10 +55,6 @@ export default function Home() {
   const scores = React.useMemo(() => {
     return data.result.scores;
   }, [data.result.scores]);
-
-  const currentCycleEndTimestamp = React.useMemo(() => {
-    return rewardsMetadata.result.metadata.currentPeriodEndTimestamp;
-  }, [rewardsMetadata.result.metadata.currentPeriodEndTimestamp]);
 
   const lastWeeksSummary = React.useMemo(() => {
     return creatorRewardsPeriodSummary.result.summary;
