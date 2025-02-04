@@ -114,12 +114,12 @@ export default function Home() {
         <div
           className={cn(lastWeeksSummaryPillVisible ? 'flex-none' : 'flex-1')}
         >
-          <HowToEarnPill />
+          <RewardTiersPill />
         </div>
         <div
           className={cn(lastWeeksSummaryPillVisible ? 'flex-none' : 'flex-1')}
         >
-          <RewardTiersPill />
+          <HowToEarnPill />
         </div>
       </div>
       <div className="text-xl font-semibold">Leaderboard</div>

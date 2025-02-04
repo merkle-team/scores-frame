@@ -27,6 +27,9 @@
 }
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
   * {
     @apply border-border;
   }
@@ -47,6 +50,7 @@
   @-moz-document url-prefix() {
     .scrollbar-vert,
     .scrollbar-horz {
+      scrollbar-gutter: stable;
       scrollbar-color: #d1d5db99 #fff;
       scrollbar-width: thin;
     }
@@ -54,6 +58,7 @@
     @media (prefers-color-scheme: dark) {
       .scrollbar-vert,
       .scrollbar-horz {
+        scrollbar-gutter: stable;
         scrollbar-color: #423466 #17101f;
       }
     }
@@ -62,15 +67,18 @@
 
   /* Webkit-only part */
   .scrollbar-vert::-webkit-scrollbar {
+    scrollbar-gutter: stable;
     width: 6px;
   }
 
   .scrollbar-horz::-webkit-scrollbar {
+    scrollbar-gutter: stable;
     height: 8px;
   }
 
   .scrollbar-vert::-webkit-scrollbar-thumb,
   .scrollbar-horz::-webkit-scrollbar-thumb {
+    scrollbar-gutter: stable;
     @apply bg-secondary;
     border-radius: 12px;
   }
