@@ -696,12 +696,17 @@ export type ApiCreatorRewardsEarningsHistory = {
   totalEarningsCents: ApiNonNegativeInteger;
 };
 
+export type ApiCreatorRewardsExclusionType =
+  | 'missing-tax-docs'
+  | 'geo-restricted';
+
 export type ApiCreatorRewardsPeriodSummary = {
   periodStartDate: ApiTimestampMillis;
   periodEndDate: ApiTimestampMillis;
   rewardCents: ApiNonNegativeInteger;
   score: ApiNonNegativeInteger;
   rank?: ApiNonNegativeInteger;
+  exclusion?: ApiCreatorRewardsExclusionType;
 };
 
 type ApiGetCreatorRewardsMetadata200Response = {
