@@ -2,7 +2,11 @@ import React from 'react';
 
 import { ApiCreatorRewardsLeaderboardUser } from '@/lib/api';
 import { cn } from '@/lib/cn';
-import { useCreatorRewards, useCreatorRewardsLeaderboard } from '@/lib/queries';
+import {
+  useCreatorRewards,
+  useCreatorRewardsLeaderboard,
+  useCreatorRewardsPeriodSummary,
+} from '@/lib/queries';
 import { useFrameContext } from '@/providers/FrameContextProvider';
 
 import { Card } from '../ui/card';
@@ -11,6 +15,10 @@ import { ScoreSummaryRow } from './scoreSummaryRow';
 
 function RewardsLeaderboard() {
   const { fid, triggerViewProfile } = useFrameContext();
+
+  const { data: creatorRewardsPeriodSummary } = useCreatorRewardsPeriodSummary({
+    fid,
+  });
 
   const { data: creatorRewardsData } = useCreatorRewards({ fid });
 
@@ -25,6 +33,10 @@ function RewardsLeaderboard() {
     return data?.pages.flatMap((page) => page.result.leaderboard.users) || [];
   }, [data?.pages]);
 
+  const exclusion = React.useMemo(() => {
+    return creatorRewardsPeriodSummary.result.summary.exclusion;
+  }, [creatorRewardsPeriodSummary.result.summary]);
+
   const renderItem = React.useCallback(
     ({ item }: { index: number; item: ApiCreatorRewardsLeaderboardUser }) => {
       const viewerRow = item.user.fid === fid;
@@ -38,12 +50,13 @@ function RewardsLeaderboard() {
             item.rank !== 1 && 'border-t',
             viewerRow && 'bg-secondary',
             viewerRow && item.rank === 1 && 'rounded-t-lg',
+            viewerRow && exclusion && 'opacity-25',
           )}
           onClick={triggerViewProfile}
         />
       );
     },
-    [fid, triggerViewProfile],
+    [exclusion, fid, triggerViewProfile],
   );
 
   const keyExtractor = React.useCallback(
@@ -61,7 +74,7 @@ function RewardsLeaderboard() {
             user={viewerScores.user}
             rank={viewerScores.currentPeriodRank}
             score={viewerScores.currentPeriodScore}
-            className={undefined}
+            className={cn(exclusion && 'opacity-25')}
             onClick={() => {
               // Kinda probably weird to trigger this on self row click but
               // let's do it anyway so its a consistent experience.
