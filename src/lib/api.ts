@@ -698,7 +698,23 @@ export type ApiCreatorRewardsEarningsHistory = {
 
 export type ApiCreatorRewardsExclusionType =
   | 'missing-tax-docs'
-  | 'geo-restricted';
+  | 'unsupported-region';
+
+export type ApiCreatorRewardPaidInviteBoost = {
+  type: 'paid-invite';
+  claimed: boolean;
+  boost: number;
+};
+
+export type ApiCreatorRewardWalletBalanceBoost = {
+  type: 'wallet-balance';
+  claimed: boolean;
+  boost: number;
+};
+
+export type ApiCreatorRewardBoost =
+  | ApiCreatorRewardPaidInviteBoost
+  | ApiCreatorRewardWalletBalanceBoost;
 
 export type ApiCreatorRewardsPeriodSummary = {
   periodStartDate: ApiTimestampMillis;
@@ -707,6 +723,7 @@ export type ApiCreatorRewardsPeriodSummary = {
   score: ApiNonNegativeInteger;
   rank?: ApiNonNegativeInteger;
   exclusion?: ApiCreatorRewardsExclusionType;
+  boosts?: ApiCreatorRewardBoost[];
 };
 
 type ApiGetCreatorRewardsMetadata200Response = {
