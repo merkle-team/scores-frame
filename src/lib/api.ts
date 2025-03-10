@@ -169,7 +169,8 @@ type EndpointName =
   | 'getCreatorRewardsLeaderboard'
   | 'getCreatorRewardsMetadata'
   | 'getCreatorRewardsEarningsHistory'
-  | 'getCreatorRewardsPeriodSummary';
+  | 'getCreatorRewardsPeriodSummary'
+  | 'getCreatorRewardsPayoutEligibilityForUser';
 
 type Fetcher = typeof fetch;
 
@@ -726,6 +727,11 @@ export type ApiCreatorRewardsPeriodSummary = {
   boosts?: ApiCreatorRewardBoost[];
 };
 
+export type ApiCreatorRewardsPayoutEligibility = {
+  isGeoRestricted: boolean,
+  hasPhoneVerification: boolean,
+}
+
 type ApiGetCreatorRewardsMetadata200Response = {
   result: {
     metadata: ApiCreatorRewardsMetadata;
@@ -790,6 +796,17 @@ export type ApiGetCreatorRewardsPeriodSummary200Response = {
     summary: ApiCreatorRewardsPeriodSummary;
   };
 };
+
+export type ApiGetCreatorRewardsPayoutEligibilityForUserQueryParamsCamelCase = {
+  fid: number,
+}
+export type ApiGetCreatorRewardsPayoutEligibilityForUserQueryParams = ApiGetCreatorRewardsPayoutEligibilityForUserQueryParamsCamelCase;
+
+export type ApiGetCreatorRewardsPayoutEligibilityForUser200Response = {
+  result: {
+    eligibility: ApiCreatorRewardsPayoutEligibility,
+  },
+}
 
 class WarpcastApiClient extends AbstractWarpcastApiClient {
   /**
@@ -876,6 +893,24 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
         headers,
         timeout,
         endpointName: 'getCreatorRewardsPeriodSummary',
+        params,
+      },
+    );
+  }
+
+  /**
+   * Get creator rewards payout eligibility for a user
+   */
+  getCreatorRewardsPayoutEligibilityForUser(
+    params: ApiGetCreatorRewardsPayoutEligibilityForUserQueryParams,
+    { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
+  ) {
+    return this.authedGet<ApiGetCreatorRewardsPayoutEligibilityForUser200Response>(
+      '/v1/creator-rewards-payout-eligibility-for-user',
+      {
+        headers,
+        timeout,
+        endpointName: 'getCreatorRewardsPayoutEligibilityForUser',
         params,
       },
     );

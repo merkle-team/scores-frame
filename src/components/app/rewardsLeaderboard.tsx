@@ -1,17 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { ApiCreatorRewardsLeaderboardUser } from '@/lib/api';
-import { cn } from '@/lib/cn';
+import { ApiCreatorRewardsLeaderboardUser } from "@/lib/api";
+import { cn } from "@/lib/cn";
 import {
   useCreatorRewards,
   useCreatorRewardsLeaderboard,
+  useCreatorRewardsPayoutEligibilityForUser,
   useCreatorRewardsPeriodSummary,
-} from '@/lib/queries';
-import { useFrameContext } from '@/providers/FrameContextProvider';
+} from "@/lib/queries";
+import { useFrameContext } from "@/providers/FrameContextProvider";
 
-import { Card } from '../ui/card';
-import { List } from '../ui/list';
-import { ScoreSummaryRow } from './scoreSummaryRow';
+import { Card } from "../ui/card";
+import { List } from "../ui/list";
+import { ScoreSummaryRow } from "./scoreSummaryRow";
 
 function RewardsLeaderboard() {
   const { fid, triggerViewProfile } = useFrameContext();
@@ -25,6 +26,9 @@ function RewardsLeaderboard() {
   const { data, fetchNextPage, isLoading, isFetchingNextPage } =
     useCreatorRewardsLeaderboard();
 
+  const { data: creatorRewardsPayoutEligibility } =
+    useCreatorRewardsPayoutEligibilityForUser({ fid });
+
   const viewerScores = React.useMemo(() => {
     return creatorRewardsData.result.scores;
   }, [creatorRewardsData.result.scores]);
@@ -37,6 +41,10 @@ function RewardsLeaderboard() {
     return creatorRewardsPeriodSummary.result.summary.exclusion;
   }, [creatorRewardsPeriodSummary.result.summary]);
 
+  const isGeoRestricted = React.useMemo(() => {
+    return creatorRewardsPayoutEligibility.result.eligibility.isGeoRestricted;
+  }, [creatorRewardsPayoutEligibility.result.eligibility.isGeoRestricted]);
+
   const renderItem = React.useCallback(
     ({ item }: { index: number; item: ApiCreatorRewardsLeaderboardUser }) => {
       const viewerRow = item.user.fid === fid;
@@ -47,42 +55,43 @@ function RewardsLeaderboard() {
           rank={item.rank}
           score={item.score}
           className={cn(
-            item.rank !== 1 && 'border-t',
-            viewerRow && 'bg-secondary',
-            viewerRow && item.rank === 1 && 'rounded-t-lg',
-            viewerRow && exclusion && 'opacity-25',
+            item.rank !== 1 && "border-t",
+            viewerRow && "bg-secondary",
+            viewerRow && item.rank === 1 && "rounded-t-lg",
+            viewerRow && exclusion && "opacity-25"
           )}
           onClick={triggerViewProfile}
         />
       );
     },
-    [exclusion, fid, triggerViewProfile],
+    [exclusion, fid, triggerViewProfile]
   );
 
   const keyExtractor = React.useCallback(
     (item: ApiCreatorRewardsLeaderboardUser) => {
       return item.user.fid.toString();
     },
-    [],
+    []
   );
 
   return (
     <div className="flex flex-col gap-4">
-      {typeof viewerScores.currentPeriodRank !== 'undefined' && (
-        <Card>
-          <ScoreSummaryRow
-            user={viewerScores.user}
-            rank={viewerScores.currentPeriodRank}
-            score={viewerScores.currentPeriodScore}
-            className={cn(exclusion && 'opacity-25')}
-            onClick={() => {
-              // Kinda probably weird to trigger this on self row click but
-              // let's do it anyway so its a consistent experience.
-              triggerViewProfile({ fid: viewerScores.user.fid });
-            }}
-          />
-        </Card>
-      )}
+      {typeof viewerScores.currentPeriodRank !== "undefined" &&
+        !isGeoRestricted && (
+          <Card>
+            <ScoreSummaryRow
+              user={viewerScores.user}
+              rank={viewerScores.currentPeriodRank}
+              score={viewerScores.currentPeriodScore}
+              className={cn(exclusion && "opacity-25")}
+              onClick={() => {
+                // Kinda probably weird to trigger this on self row click but
+                // let's do it anyway so its a consistent experience.
+                triggerViewProfile({ fid: viewerScores.user.fid });
+              }}
+            />
+          </Card>
+        )}
       <Card className="max-h-128">
         <List
           data={leaderboard}
