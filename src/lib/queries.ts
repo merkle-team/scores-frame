@@ -151,11 +151,22 @@ const useCreatorRewardsPeriodSummary = ({ fid }: { fid: number }) => {
   });
 };
 
+const useCreatorRewardsPayoutEligibilityForUser = ({ fid }: { fid: number }) => {
+  return useSuspenseQuery({
+    queryKey: ['creatorRewardsPayoutEligibilityForUser', fid],
+    queryFn: async () => {
+      const response = await api.getCreatorRewardsPayoutEligibilityForUser({ fid });
+      return response.data;
+    },
+  });
+};
+
 export {
   useCreatorRewards,
   useCreatorRewardsEarningHistory,
   useCreatorRewardsLeaderboard,
   useCreatorRewardsMetadata,
+  useCreatorRewardsPayoutEligibilityForUser,
   useCreatorRewardsPeriodSummary,
   usePrefetchCreatorRewards,
   usePrefetchCreatorRewardsLeaderboard,

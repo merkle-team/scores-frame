@@ -5,6 +5,7 @@ import { cn } from '@/lib/cn';
 import {
   useCreatorRewards,
   useCreatorRewardsLeaderboard,
+  useCreatorRewardsPayoutEligibilityForUser,
   useCreatorRewardsPeriodSummary,
 } from '@/lib/queries';
 import { useFrameContext } from '@/providers/FrameContextProvider';
@@ -25,6 +26,9 @@ function RewardsLeaderboard() {
   const { data, fetchNextPage, isLoading, isFetchingNextPage } =
     useCreatorRewardsLeaderboard();
 
+  const { data: creatorRewardsPayoutEligibility } =
+    useCreatorRewardsPayoutEligibilityForUser({ fid });
+
   const viewerScores = React.useMemo(() => {
     return creatorRewardsData.result.scores;
   }, [creatorRewardsData.result.scores]);
@@ -36,6 +40,10 @@ function RewardsLeaderboard() {
   const exclusion = React.useMemo(() => {
     return creatorRewardsPeriodSummary.result.summary.exclusion;
   }, [creatorRewardsPeriodSummary.result.summary]);
+
+  const isGeoRestricted = React.useMemo(() => {
+    return creatorRewardsPayoutEligibility.result.eligibility.isGeoRestricted;
+  }, [creatorRewardsPayoutEligibility.result.eligibility.isGeoRestricted]);
 
   const renderItem = React.useCallback(
     ({ item }: { index: number; item: ApiCreatorRewardsLeaderboardUser }) => {
@@ -69,20 +77,21 @@ function RewardsLeaderboard() {
   return (
     <div className="flex flex-col gap-4">
       {typeof viewerScores.currentPeriodRank !== 'undefined' && (
-        <Card>
-          <ScoreSummaryRow
-            user={viewerScores.user}
-            rank={viewerScores.currentPeriodRank}
-            score={viewerScores.currentPeriodScore}
-            className={cn(exclusion && 'opacity-25')}
-            onClick={() => {
-              // Kinda probably weird to trigger this on self row click but
-              // let's do it anyway so its a consistent experience.
-              triggerViewProfile({ fid: viewerScores.user.fid });
-            }}
-          />
-        </Card>
-      )}
+        !isGeoRestricted && (
+          <Card>
+            <ScoreSummaryRow
+              user={viewerScores.user}
+              rank={viewerScores.currentPeriodRank}
+              score={viewerScores.currentPeriodScore}
+              className={cn(exclusion && "opacity-25")}
+              onClick={() => {
+                // Kinda probably weird to trigger this on self row click but
+                // let's do it anyway so its a consistent experience.
+                triggerViewProfile({ fid: viewerScores.user.fid });
+              }}
+            />
+          </Card>
+        )}
       <Card className="max-h-128">
         <List
           data={leaderboard}

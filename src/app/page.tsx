@@ -13,6 +13,7 @@ import { cn } from '@/lib/cn';
 import { formatScore } from '@/lib/formatters';
 import {
   useCreatorRewards,
+  useCreatorRewardsPayoutEligibilityForUser,
   useCreatorRewardsPeriodSummary,
 } from '@/lib/queries';
 import { useCreatorRewardsMetadata } from '@/providers/CreatorRewardsMetadataProvider';
@@ -54,6 +55,9 @@ export default function Home() {
     fid,
   });
 
+  const { data: creatorRewardsPayoutEligibility } =
+    useCreatorRewardsPayoutEligibilityForUser({ fid });
+
   const scores = React.useMemo(() => {
     return data.result.scores;
   }, [data.result.scores]);
@@ -77,6 +81,15 @@ export default function Home() {
     return lastWeeksSummary.boosts || [];
   }, [lastWeeksSummary.boosts]);
 
+  const isGeoRestricted = React.useMemo(() => {
+    return creatorRewardsPayoutEligibility.result.eligibility.isGeoRestricted;
+  }, [creatorRewardsPayoutEligibility.result.eligibility.isGeoRestricted]);
+
+  const hasPhoneVerification = React.useMemo(() => {
+    return creatorRewardsPayoutEligibility.result.eligibility
+      .hasPhoneVerification;
+  }, [creatorRewardsPayoutEligibility.result.eligibility.hasPhoneVerification]);
+
   return (
     <div
       className="w-full h-full space-y-4 pb-4 px-4"
@@ -89,13 +102,17 @@ export default function Home() {
           : { paddingBottom: safeAreaInsets.bottom * 2.25 }
       }
     >
-      {typeof exclusion !== 'undefined' && (
-        <ExclusionCard exclusion={exclusion} />
+      {(typeof exclusion !== "undefined" || isGeoRestricted) && (
+        <ExclusionCard
+          exclusion={exclusion}
+          isGeoRestricted={isGeoRestricted}
+          hasPhoneVerification={hasPhoneVerification}
+        />
       )}
       {typeof exclusion === 'undefined' &&
         boosts.length !== 0 &&
         boosts.map((boost) => <BoostCard key={boost.type} boost={boost} />)}
-      {exclusion !== 'unsupported-region' && (
+      {exclusion !== "unsupported-region" && !isGeoRestricted && (
         <>
           <Card className="flex flex-col items-center px-4">
             <div className="p-4 gap-2 flex flex-col items-center justify-center w-full relative">
