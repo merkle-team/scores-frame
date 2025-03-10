@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { ApiCreatorRewardsLeaderboardUser } from '@/lib/api';
-import { cn } from '@/lib/cn';
+import { ApiCreatorRewardsLeaderboardUser } from "@/lib/api";
+import { cn } from "@/lib/cn";
 import {
   useCreatorRewards,
   useCreatorRewardsLeaderboard,
   useCreatorRewardsPayoutEligibilityForUser,
   useCreatorRewardsPeriodSummary,
-} from '@/lib/queries';
-import { useFrameContext } from '@/providers/FrameContextProvider';
+} from "@/lib/queries";
+import { useFrameContext } from "@/providers/FrameContextProvider";
 
-import { Card } from '../ui/card';
-import { List } from '../ui/list';
-import { ScoreSummaryRow } from './scoreSummaryRow';
+import { Card } from "../ui/card";
+import { List } from "../ui/list";
+import { ScoreSummaryRow } from "./scoreSummaryRow";
 
 function RewardsLeaderboard() {
   const { fid, triggerViewProfile } = useFrameContext();
@@ -55,28 +55,28 @@ function RewardsLeaderboard() {
           rank={item.rank}
           score={item.score}
           className={cn(
-            item.rank !== 1 && 'border-t',
-            viewerRow && 'bg-secondary',
-            viewerRow && item.rank === 1 && 'rounded-t-lg',
-            viewerRow && exclusion && 'opacity-25',
+            item.rank !== 1 && "border-t",
+            viewerRow && "bg-secondary",
+            viewerRow && item.rank === 1 && "rounded-t-lg",
+            viewerRow && exclusion && "opacity-25"
           )}
           onClick={triggerViewProfile}
         />
       );
     },
-    [exclusion, fid, triggerViewProfile],
+    [exclusion, fid, triggerViewProfile]
   );
 
   const keyExtractor = React.useCallback(
     (item: ApiCreatorRewardsLeaderboardUser) => {
       return item.user.fid.toString();
     },
-    [],
+    []
   );
 
   return (
     <div className="flex flex-col gap-4">
-      {typeof viewerScores.currentPeriodRank !== 'undefined' && (
+      {typeof viewerScores.currentPeriodRank !== "undefined" &&
         !isGeoRestricted && (
           <Card>
             <ScoreSummaryRow
