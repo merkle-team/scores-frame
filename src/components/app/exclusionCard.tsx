@@ -69,8 +69,8 @@ function ExclusionCard({
       </Card>
     );
   } else if (
-    exclusion === "unsupported-region" ||
-    (isGeoRestricted && hasPhoneVerification)
+    (exclusion === "unsupported-region" || isGeoRestricted) &&
+    hasPhoneVerification
   ) {
     return (
       <Card className="flex flex-row items-start p-3 gap-2 border">
