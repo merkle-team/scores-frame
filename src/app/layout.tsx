@@ -24,9 +24,9 @@ const frame = {
 export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL('https://rewards.warpcast.com'),
-    title: 'Warpcast Rewards',
+    title: 'Rewards',
     openGraph: {
-      title: 'Warpcast',
+      title: 'Farcaster Rewards',
       description: 'Rewards',
       images: `https://rewards.warpcast.com/og.png`,
     },
