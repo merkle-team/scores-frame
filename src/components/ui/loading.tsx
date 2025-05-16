@@ -10,7 +10,7 @@ function Loading({}: {}) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={SplashImage.src}
-        alt="Warpcast Rewards splash screen image"
+        alt="Rewards splash screen image"
         className="animate-pulse"
         style={{ marginTop: `-${FRAME_SPLASH_IMAGE_SIZE}px` }}
         width={FRAME_SPLASH_IMAGE_SIZE}
