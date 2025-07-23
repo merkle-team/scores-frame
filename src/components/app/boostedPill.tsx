@@ -14,7 +14,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
 
   return (
     <Drawer.Drawer>
-      <Drawer.DrawerTrigger className="flex flex-row">
+      <Drawer.DrawerTrigger className="flex flex-row outline-none">
         <div
           className={cn(
             "rounded-full h-6 items-center px-2 flex flex-row shrink-0 bg-[#454]",
@@ -27,7 +27,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
         </div>
       </Drawer.DrawerTrigger>
       <Drawer.DrawerContent aria-describedby={undefined}>
-        <div className="w-full">
+        <div className="w-full pb-4">
           <Drawer.DrawerHeader className="mx-4 flex flex-row items-center">
             <div
               className={cn(
