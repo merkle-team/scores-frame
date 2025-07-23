@@ -8,12 +8,16 @@ import { ShootingStarIcon } from "../core/icons";
 import { Card } from "../ui/card";
 
 function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
+  const claimedBoosts = React.useMemo(() => {
+    return boosts.filter((boost) => boost.claimed);
+  }, [boosts]);
+
   return (
     <Drawer.Drawer>
       <Drawer.DrawerTrigger className="flex flex-row">
         <div
           className={cn(
-            "rounded-full h-8 items-center px-2 flex flex-row shrink-0 bg-[#454]",
+            "rounded-full h-6 items-center px-2 flex flex-row shrink-0 bg-[#454]",
           )}
         >
           <ShootingStarIcon />
@@ -35,40 +39,47 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
             <Drawer.DrawerTitle>Your score is boosted</Drawer.DrawerTitle>
           </Drawer.DrawerHeader>
           <Card className="flex flex-col mb-4 mx-4">
-            {boosts.map((boost) => {
-              switch (boost.type) {
-                case "wallet-balance":
-                  return boost.claimed ? (
-                    <div
-                      className="flex flex-row border-b p-3 justify-between"
-                      key={boost.type}
-                    >
-                      <div className="text-muted text-sm">
-                        $25 balance in wallet
+            {claimedBoosts
+              .map((boost, index) => {
+                switch (boost.type) {
+                  case "wallet-balance":
+                    return (
+                      <div
+                        className={cn(
+                          "flex flex-row p-3 justify-between",
+                          index < claimedBoosts.length - 1 ? "border-b" : "",
+                        )}
+                        key={boost.type}
+                      >
+                        <div className="text-muted text-sm">
+                          $25 balance in wallet
+                        </div>
+                        <div className="text-[#7CBE6F] font-semibold text-sm">
+                          +{boost.boost}
+                        </div>
                       </div>
-                      <div className="text-[#7CBE6F] font-semibold text-sm">
-                        +${boost.boost}
+                    );
+                  case "video-upload":
+                    return (
+                      <div
+                        className={cn(
+                          "flex flex-row p-3 justify-between",
+                          index < claimedBoosts.length - 1 ? "border-b" : "",
+                        )}
+                        key={boost.type}
+                      >
+                        <div className="text-muted text-sm">
+                          Weekly video uploads
+                        </div>
+                        <div className="text-[#7CBE6F] font-semibold text-sm">
+                          +{boost.boost}
+                        </div>
                       </div>
-                    </div>
-                  ) : null;
-                case "video-upload":
-                  return boost.claimed ? (
-                    <div
-                      className="flex flex-row border-b p-3 justify-between"
-                      key={boost.type}
-                    >
-                      <div className="text-muted text-sm">
-                        Weekly video uploads
-                      </div>
-                      <div className="text-[#7CBE6F] font-semibold text-sm">
-                        +${boost.boost}
-                      </div>
-                    </div>
-                  ) : null;
-                default:
-                  return null;
-              }
-            })}
+                    );
+                  default:
+                    return null;
+                }
+              })}
           </Card>
         </div>
       </Drawer.DrawerContent>
