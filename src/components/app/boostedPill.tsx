@@ -13,7 +13,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
       <Drawer.DrawerTrigger className="flex flex-row">
         <div
           className={cn(
-            "rounded-full h-8 items-center px-2 flex flex-row shrink-0 bg-[#454]",
+            "rounded-full h-6 items-center px-2 flex flex-row shrink-0 bg-[#454]",
           )}
         >
           <ShootingStarIcon />
