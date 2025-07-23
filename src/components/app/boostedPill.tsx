@@ -35,12 +35,15 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
             <Drawer.DrawerTitle>Your score is boosted</Drawer.DrawerTitle>
           </Drawer.DrawerHeader>
           <Card className="flex flex-col mb-4 mx-4">
-            {boosts.map((boost) => {
+            {boosts.map((boost, index) => {
               switch (boost.type) {
                 case "wallet-balance":
                   return boost.claimed ? (
                     <div
-                      className="flex flex-row p-3 justify-between"
+                      className={cn(
+                        "flex flex-row p-3 justify-between",
+                        index < boosts.length - 1 ? "border-b" : "",
+                      )}
                       key={boost.type}
                     >
                       <div className="text-muted text-sm">
@@ -54,7 +57,10 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
                 case "video-upload":
                   return boost.claimed ? (
                     <div
-                      className="flex flex-row p-3 justify-between"
+                      className={cn(
+                        "flex flex-row p-3 justify-between",
+                        index < boosts.length - 1 ? "border-b" : "",
+                      )}
                       key={boost.type}
                     >
                       <div className="text-muted text-sm">
