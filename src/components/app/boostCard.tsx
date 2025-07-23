@@ -3,7 +3,7 @@ import { ApiCreatorRewardBoost } from '@/lib/api';
 import { cn } from '@/lib/cn';
 
 function BoostCard({ boost }: { boost: ApiCreatorRewardBoost }) {
-  if (boost.type === 'wallet-balance') {
+  if (boost.type === 'video-upload') {
     return (
       <Card
         className={cn(
@@ -51,18 +51,17 @@ function BoostCard({ boost }: { boost: ApiCreatorRewardBoost }) {
           <div className="font-semibold text-sm py-0.5">
             {boost.claimed
               ? 'Boost unlocked!'
-              : 'Boost your score by funding your wallet!'}
+              : 'Get an extra boost for sharing videos'}
           </div>
           <div className="text-muted text-sm">
             {boost.claimed
-              ? `You're getting a +${boost.boost} point boost for funding your Farcaster Wallet.`
-              : `Users with $25 in their Farcaster Wallet will get a +${boost.boost} point boost this week.`}
+              ? `You’re getting +${boost.boost} points for posting videos this week`
+              : `Post a video on Farcaster to earn +${boost.boost} bonus points this week`}
           </div>
         </div>
       </Card>
     );
   }
-
   return null;
 }
 
