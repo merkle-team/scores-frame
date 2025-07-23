@@ -38,7 +38,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
             {boosts.map((boost) => {
               switch (boost.type) {
                 case "wallet-balance":
-                  return (
+                  return boost.claimed ? (
                     <div
                       className="flex flex-row border-b p-3 justify-between"
                       key={boost.type}
@@ -50,9 +50,9 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
                         +${boost.boost}
                       </div>
                     </div>
-                  );
+                  ) : null;
                 case "video-upload":
-                  return (
+                  return boost.claimed ? (
                     <div
                       className="flex flex-row border-b p-3 justify-between"
                       key={boost.type}
@@ -64,7 +64,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
                         +${boost.boost}
                       </div>
                     </div>
-                  );
+                  ) : null;
                 default:
                   return null;
               }
