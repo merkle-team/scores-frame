@@ -35,24 +35,40 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
             <Drawer.DrawerTitle>Your score is boosted</Drawer.DrawerTitle>
           </Drawer.DrawerHeader>
           <Card className="flex flex-col mb-4 mx-4">
-            {boosts.map((boost) =>
-              boost.type === "wallet-balance" ||
-              boost.type === "video-upload" ? (
-                <div
-                  className="flex flex-row border-b p-3 justify-between"
-                  key={boost.type}
-                >
-                  <div className="text-muted text-sm">
-                    {boost.type === "wallet-balance"
-                      ? "$25 balance in wallet"
-                      : "Weekly video uploads"}
-                  </div>
-                  <div className="text-[#7CBE6F] font-semibold text-sm">
-                    +${boost.boost}
-                  </div>
-                </div>
-              ) : null,
-            )}
+            {boosts.map((boost) => {
+              switch (boost.type) {
+                case "wallet-balance":
+                  return (
+                    <div
+                      className="flex flex-row border-b p-3 justify-between"
+                      key={boost.type}
+                    >
+                      <div className="text-muted text-sm">
+                        $25 balance in wallet
+                      </div>
+                      <div className="text-[#7CBE6F] font-semibold text-sm">
+                        +${boost.boost}
+                      </div>
+                    </div>
+                  );
+                case "video-upload":
+                  return (
+                    <div
+                      className="flex flex-row border-b p-3 justify-between"
+                      key={boost.type}
+                    >
+                      <div className="text-muted text-sm">
+                        Weekly video uploads
+                      </div>
+                      <div className="text-[#7CBE6F] font-semibold text-sm">
+                        +${boost.boost}
+                      </div>
+                    </div>
+                  );
+                default:
+                  return null;
+              }
+            })}
           </Card>
         </div>
       </Drawer.DrawerContent>
