@@ -1,23 +1,24 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
-import { BoostCard } from '@/components/app/boostCard';
-import { ExclusionCard } from '@/components/app/exclusionCard';
-import { HowToEarnPill } from '@/components/app/howToEarnPill';
-import { LastWeeksRankPill } from '@/components/app/lastWeeksRankPill';
-import { RewardsLeaderboard } from '@/components/app/rewardsLeaderboard';
-import { RewardTiersPill } from '@/components/app/rewardTiersPill';
-import { Card } from '@/components/ui/card';
-import { cn } from '@/lib/cn';
-import { formatScore } from '@/lib/formatters';
+import { BoostCard } from "@/components/app/boostCard";
+import { BoostedPill } from "@/components/app/boostedPill";
+import { ExclusionCard } from "@/components/app/exclusionCard";
+import { HowToEarnPill } from "@/components/app/howToEarnPill";
+import { LastWeeksRankPill } from "@/components/app/lastWeeksRankPill";
+import { RewardsLeaderboard } from "@/components/app/rewardsLeaderboard";
+import { RewardTiersPill } from "@/components/app/rewardTiersPill";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/cn";
+import { formatScore } from "@/lib/formatters";
 import {
   useCreatorRewards,
   useCreatorRewardsPayoutEligibilityForUser,
   useCreatorRewardsPeriodSummary,
-} from '@/lib/queries';
-import { useCreatorRewardsMetadata } from '@/providers/CreatorRewardsMetadataProvider';
-import { useFrameContext } from '@/providers/FrameContextProvider';
+} from "@/lib/queries";
+import { useCreatorRewardsMetadata } from "@/providers/CreatorRewardsMetadataProvider";
+import { useFrameContext } from "@/providers/FrameContextProvider";
 
 function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
   const [time, setTime] = React.useState(timestamp - Date.now());
@@ -31,7 +32,7 @@ function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
   }, [time, timestamp]);
 
   if (time < 0) {
-    return 'N/A';
+    return "N/A";
   }
 
   const s = Math.floor(time / 1000);
@@ -40,7 +41,7 @@ function FormattedTimeWithCountdown({ timestamp }: { timestamp: number }) {
   const m = Math.floor((s % 3600) / 60);
   const sec = s % 60;
   if (d > 0) return `${d}d ${h}h`;
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 }
 
 // eslint-disable-next-line import/no-default-export
@@ -68,7 +69,7 @@ export default function Home() {
 
   const lastWeeksSummaryPillVisible = React.useMemo(() => {
     return (
-      typeof lastWeeksSummary.score !== 'undefined' &&
+      typeof lastWeeksSummary.score !== "undefined" &&
       lastWeeksSummary.score > 0
     );
   }, [lastWeeksSummary.score]);
@@ -97,7 +98,7 @@ export default function Home() {
         // FIXME: Don't like we have to do this and would've preferred the general wrapper
         // of the safe area is sufficient enough but have to go with this for now for the
         // design we have on this page.
-        typeof safeAreaInsets === 'undefined'
+        typeof safeAreaInsets === "undefined"
           ? undefined
           : { paddingBottom: safeAreaInsets.bottom * 2.25 }
       }
@@ -109,7 +110,7 @@ export default function Home() {
           hasPhoneVerification={hasPhoneVerification}
         />
       )}
-      {typeof exclusion === 'undefined' &&
+      {typeof exclusion === "undefined" &&
         boosts.length !== 0 &&
         boosts.map((boost) => <BoostCard key={boost.type} boost={boost} />)}
       {exclusion !== "unsupported-region" && !isGeoRestricted && (
@@ -120,9 +121,12 @@ export default function Home() {
               <div className="font-semibold text-4xl text-center">
                 {formatScore({ score: scores.currentPeriodScore })}
               </div>
+              {boosts.filter((x) => x.claimed).length > 0 && (
+                <BoostedPill boosts={boosts} />
+              )}
             </div>
             <div className="flex flex-row items-center justify-evenly w-full mb-4 border-t pt-4">
-              {typeof scores.currentPeriodRank !== 'undefined' && (
+              {typeof scores.currentPeriodRank !== "undefined" && (
                 <div className="flex flex-col items-center justify-center w-full border-r">
                   <div className="text-muted font-semibold text-xs">
                     Your rank
@@ -152,14 +156,14 @@ export default function Home() {
             )}
             <div
               className={cn(
-                lastWeeksSummaryPillVisible ? 'flex-none' : 'flex-1',
+                lastWeeksSummaryPillVisible ? "flex-none" : "flex-1",
               )}
             >
               <RewardTiersPill />
             </div>
             <div
               className={cn(
-                lastWeeksSummaryPillVisible ? 'flex-none' : 'flex-1',
+                lastWeeksSummaryPillVisible ? "flex-none" : "flex-1",
               )}
             >
               <HowToEarnPill />

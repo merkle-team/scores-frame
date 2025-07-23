@@ -20,19 +20,19 @@ function mergeIntoDefaultOptions<T>({
 
 // Adapted from https://github.com/sindresorhus/is-network-error/tree/main
 const networkErrorMessages = new Set([
-  'Failed to fetch', // Chrome
-  'NetworkError when attempting to fetch resource.', // Firefox
-  'The Internet connection appears to be offline.', // Safari 16
-  'Load failed', // Safari 17+
-  'Network request failed', // `cross-fetch`
+  "Failed to fetch", // Chrome
+  "NetworkError when attempting to fetch resource.", // Firefox
+  "The Internet connection appears to be offline.", // Safari 16
+  "Load failed", // Safari 17+
+  "Network request failed", // `cross-fetch`
 ]);
 
 function isNetworkError(error: unknown) {
   const isValid =
     error &&
     isError(error) &&
-    error.name === 'TypeError' &&
-    typeof error.message === 'string';
+    error.name === "TypeError" &&
+    typeof error.message === "string";
 
   if (!isValid) {
     return false;
@@ -40,7 +40,7 @@ function isNetworkError(error: unknown) {
 
   // We do an extra check for Safari 17+ as it has a very generic error message.
   // Network errors in Safari have no stack.
-  if (error.message === 'Load failed') {
+  if (error.message === "Load failed") {
     return error.stack === undefined;
   }
 
@@ -115,7 +115,7 @@ export class UnhandledFetchError extends FarcasterError {
 
   constructor(options: FarcasterErrorOptions<FetchErrorOptions>) {
     super(options.message, options);
-    this.name = 'Farcaster API Error';
+    this.name = "Farcaster API Error";
     this.absoluteUrl = options.absoluteUrl;
     this.body = options.body;
     this.endpointName = options.endpointName;
@@ -154,7 +154,7 @@ type RequestRelativeUrl = `/${string}`;
 
 type RequestHeaders = Record<string, string>;
 
-type RequestMethod = 'GET' | 'PATCH' | 'POST' | 'PUT' | 'DELETE';
+type RequestMethod = "GET" | "PATCH" | "POST" | "PUT" | "DELETE";
 
 type RequestParams = Record<
   string,
@@ -165,12 +165,12 @@ type RequestParams = Record<
 type RequestData = any;
 
 type EndpointName =
-  | 'getCreatorRewardsForUser'
-  | 'getCreatorRewardsLeaderboard'
-  | 'getCreatorRewardsMetadata'
-  | 'getCreatorRewardsEarningsHistory'
-  | 'getCreatorRewardsPeriodSummary'
-  | 'getCreatorRewardsPayoutEligibilityForUser';
+  | "getCreatorRewardsForUser"
+  | "getCreatorRewardsLeaderboard"
+  | "getCreatorRewardsMetadata"
+  | "getCreatorRewardsEarningsHistory"
+  | "getCreatorRewardsPeriodSummary"
+  | "getCreatorRewardsPayoutEligibilityForUser";
 
 type Fetcher = typeof fetch;
 
@@ -230,8 +230,8 @@ export interface FetchOptions {
   readonly timeout?: number;
 }
 
-type FetchOptionsWithoutMethod = Omit<FetchOptions, 'method'>;
-type FetchOptionsWithoutMethodOrBody = Omit<FetchOptionsWithoutMethod, 'body'>;
+type FetchOptionsWithoutMethod = Omit<FetchOptions, "method">;
+type FetchOptionsWithoutMethodOrBody = Omit<FetchOptionsWithoutMethod, "body">;
 
 type MutateFetchOptions = FetchOptionsWithoutMethod & {
   retryLimit?: number;
@@ -248,7 +248,7 @@ export interface FetchResponse<T> {
   readonly status: number;
 }
 
-const defaultBaseUrl = 'https://client.warpcast.com';
+const defaultBaseUrl = "https://client.warpcast.com";
 const defaultReadTimeout = 20 * 1000;
 const defaultMutateTimeout = 20 * 1000;
 
@@ -321,11 +321,11 @@ abstract class AbstractWarpcastApiClient {
       : undefined;
 
     this.defaultHeaders = {
-      'Content-Type': 'application/json; charset=utf-8',
+      "Content-Type": "application/json; charset=utf-8",
     };
 
     for (const key in this.defaultHeaders) {
-      if (this.defaultHeaders[key] === '') {
+      if (this.defaultHeaders[key] === "") {
         delete this.defaultHeaders[key];
       }
     }
@@ -351,7 +351,7 @@ abstract class AbstractWarpcastApiClient {
     let responseData: T | undefined;
 
     const stringifiedParams =
-      typeof params !== 'undefined'
+      typeof params !== "undefined"
         ? new URLSearchParams(
             Object.entries(params).flatMap(([key, value]) =>
               Array.isArray(value)
@@ -361,9 +361,9 @@ abstract class AbstractWarpcastApiClient {
                   : [],
             ),
           ).toString()
-        : '';
+        : "";
     const url = `${baseUrl || this.options.baseUrl}${relativeUrl}${
-      stringifiedParams ? `?${stringifiedParams}` : ''
+      stringifiedParams ? `?${stringifiedParams}` : ""
     }`;
 
     const headers = {
@@ -383,7 +383,7 @@ abstract class AbstractWarpcastApiClient {
           return timeout;
         }
 
-        if (method === 'GET') {
+        if (method === "GET") {
           return this.options.readTimeout === undefined
             ? defaultReadTimeout
             : this.options.readTimeout;
@@ -414,7 +414,7 @@ abstract class AbstractWarpcastApiClient {
           ? originalError.message
           : originalError
             ? String(originalError)
-            : 'Farcaster API Client experienced an unexpected error.',
+            : "Farcaster API Client experienced an unexpected error.",
         isNetworkError: isNetworkError(originalError),
         method,
         relativeUrl,
@@ -442,7 +442,7 @@ abstract class AbstractWarpcastApiClient {
       if (isOffline) {
         throw new UnhandledFetchError(
           buildErrorParams({
-            originalError: 'Offline',
+            originalError: "Offline",
             isHandled: false,
             isOffline,
           }),
@@ -471,7 +471,7 @@ abstract class AbstractWarpcastApiClient {
 
       if (!resolvedFetch) {
         throw new Error(
-          'Failed to find a resolved fetch method to make requests',
+          "Failed to find a resolved fetch method to make requests",
         );
       }
 
@@ -489,10 +489,10 @@ abstract class AbstractWarpcastApiClient {
       });
 
       const contentType = (
-        response.headers.get('content-type') ||
-        'application/json; charset=utf-8'
+        response.headers.get("content-type") ||
+        "application/json; charset=utf-8"
       ).toLowerCase();
-      const isJson = contentType.includes('json');
+      const isJson = contentType.includes("json");
       const responseData: T = isJson
         ? await response.json()
         : await response.text();
@@ -501,7 +501,7 @@ abstract class AbstractWarpcastApiClient {
         const body = responseData as unknown as ApiErrorResponse;
         const message = `${endpointName} ${response.status} - ${body.errors
           .map((e) => e.message)
-          .join(',')}`;
+          .join(",")}`;
         const handledError = new HandledFetchError({
           ...buildErrorParams({ originalError: message, isHandled: true }),
           responseData: body,
@@ -549,13 +549,13 @@ abstract class AbstractWarpcastApiClient {
   ) {
     return this.fetch<T>(url, {
       ...options,
-      method: 'GET',
+      method: "GET",
       headers: await this.authorize(headers),
     });
   }
 
   protected async get<T>(url: RequestRelativeUrl, options: GetOptions) {
-    return this.fetch<T>(url, { ...options, method: 'GET' });
+    return this.fetch<T>(url, { ...options, method: "GET" });
   }
 
   protected async patch<T>(
@@ -564,7 +564,7 @@ abstract class AbstractWarpcastApiClient {
   ) {
     return this.fetch<T>(url, {
       ...options,
-      method: 'PATCH',
+      method: "PATCH",
       headers: await this.authorize(headers, true),
     });
   }
@@ -575,7 +575,7 @@ abstract class AbstractWarpcastApiClient {
   ) {
     return this.fetch<T>(url, {
       ...options,
-      method: 'POST',
+      method: "POST",
       headers: await this.authorize(headers, true),
     });
   }
@@ -586,7 +586,7 @@ abstract class AbstractWarpcastApiClient {
   ) {
     return this.fetch<T>(url, {
       ...options,
-      method: 'PUT',
+      method: "PUT",
       headers: await this.authorize(headers, true),
     });
   }
@@ -597,7 +597,7 @@ abstract class AbstractWarpcastApiClient {
   ) {
     return this.fetch<T>(url, {
       ...options,
-      method: 'DELETE',
+      method: "DELETE",
       headers: await this.authorize(headers, true),
     });
   }
@@ -618,7 +618,7 @@ abstract class AbstractWarpcastApiClient {
 
     const allHeaders: RequestHeaders = { ...originalHeaders, Authorization };
     if (idempotent) {
-      allHeaders['Idempotency-Key'] = generateIdempotencyKey();
+      allHeaders["Idempotency-Key"] = generateIdempotencyKey();
     }
     return allHeaders;
   }
@@ -698,24 +698,31 @@ export type ApiCreatorRewardsEarningsHistory = {
 };
 
 export type ApiCreatorRewardsExclusionType =
-  | 'missing-tax-docs'
-  | 'unsupported-region';
+  | "missing-tax-docs"
+  | "unsupported-region";
 
 export type ApiCreatorRewardPaidInviteBoost = {
-  type: 'paid-invite';
+  type: "paid-invite";
   claimed: boolean;
   boost: number;
 };
 
 export type ApiCreatorRewardWalletBalanceBoost = {
-  type: 'wallet-balance';
+  type: "wallet-balance";
+  claimed: boolean;
+  boost: number;
+};
+
+export type ApiCreatorRewardVideoUploadBoost = {
+  type: "video-upload";
   claimed: boolean;
   boost: number;
 };
 
 export type ApiCreatorRewardBoost =
   | ApiCreatorRewardPaidInviteBoost
-  | ApiCreatorRewardWalletBalanceBoost;
+  | ApiCreatorRewardWalletBalanceBoost
+  | ApiCreatorRewardVideoUploadBoost;
 
 export type ApiCreatorRewardsPeriodSummary = {
   periodStartDate: ApiTimestampMillis;
@@ -728,9 +735,9 @@ export type ApiCreatorRewardsPeriodSummary = {
 };
 
 export type ApiCreatorRewardsPayoutEligibility = {
-  isGeoRestricted: boolean,
-  hasPhoneVerification: boolean,
-}
+  isGeoRestricted: boolean;
+  hasPhoneVerification: boolean;
+};
 
 type ApiGetCreatorRewardsMetadata200Response = {
   result: {
@@ -798,15 +805,16 @@ export type ApiGetCreatorRewardsPeriodSummary200Response = {
 };
 
 export type ApiGetCreatorRewardsPayoutEligibilityForUserQueryParamsCamelCase = {
-  fid: number,
-}
-export type ApiGetCreatorRewardsPayoutEligibilityForUserQueryParams = ApiGetCreatorRewardsPayoutEligibilityForUserQueryParamsCamelCase;
+  fid: number;
+};
+export type ApiGetCreatorRewardsPayoutEligibilityForUserQueryParams =
+  ApiGetCreatorRewardsPayoutEligibilityForUserQueryParamsCamelCase;
 
 export type ApiGetCreatorRewardsPayoutEligibilityForUser200Response = {
   result: {
-    eligibility: ApiCreatorRewardsPayoutEligibility,
-  },
-}
+    eligibility: ApiCreatorRewardsPayoutEligibility;
+  };
+};
 
 class WarpcastApiClient extends AbstractWarpcastApiClient {
   /**
@@ -817,11 +825,11 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
     { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
   ) {
     return this.authedGet<ApiGetCreatorRewardsLeaderboard200Response>(
-      '/v1/creator-rewards-leaderboard',
+      "/v1/creator-rewards-leaderboard",
       {
         headers,
         timeout,
-        endpointName: 'getCreatorRewardsLeaderboard',
+        endpointName: "getCreatorRewardsLeaderboard",
         params,
       },
     );
@@ -835,11 +843,11 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
     timeout,
   }: { headers?: RequestHeaders; timeout?: number } = {}) {
     return this.authedGet<ApiGetCreatorRewardsMetadata200Response>(
-      '/v1/creator-rewards-metadata',
+      "/v1/creator-rewards-metadata",
       {
         headers,
         timeout,
-        endpointName: 'getCreatorRewardsMetadata',
+        endpointName: "getCreatorRewardsMetadata",
       },
     );
   }
@@ -852,11 +860,11 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
     { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
   ) {
     return this.authedGet<ApiGetCreatorRewardsForUser200Response>(
-      '/v1/creator-rewards-scores-for-user',
+      "/v1/creator-rewards-scores-for-user",
       {
         headers,
         timeout,
-        endpointName: 'getCreatorRewardsForUser',
+        endpointName: "getCreatorRewardsForUser",
         params,
       },
     );
@@ -870,11 +878,11 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
     { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
   ) {
     return this.authedGet<ApiGetCreatorRewardsEarningsHistory200Response>(
-      '/v1/creator-rewards-earnings-history',
+      "/v1/creator-rewards-earnings-history",
       {
         headers,
         timeout,
-        endpointName: 'getCreatorRewardsEarningsHistory',
+        endpointName: "getCreatorRewardsEarningsHistory",
         params,
       },
     );
@@ -888,11 +896,11 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
     { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
   ) {
     return this.authedGet<ApiGetCreatorRewardsPeriodSummary200Response>(
-      '/v1/creator-rewards-period-summary',
+      "/v1/creator-rewards-period-summary",
       {
         headers,
         timeout,
-        endpointName: 'getCreatorRewardsPeriodSummary',
+        endpointName: "getCreatorRewardsPeriodSummary",
         params,
       },
     );
@@ -906,11 +914,11 @@ class WarpcastApiClient extends AbstractWarpcastApiClient {
     { headers, timeout }: { headers?: RequestHeaders; timeout?: number } = {},
   ) {
     return this.authedGet<ApiGetCreatorRewardsPayoutEligibilityForUser200Response>(
-      '/v1/creator-rewards-payout-eligibility-for-user',
+      "/v1/creator-rewards-payout-eligibility-for-user",
       {
         headers,
         timeout,
-        endpointName: 'getCreatorRewardsPayoutEligibilityForUser',
+        endpointName: "getCreatorRewardsPayoutEligibilityForUser",
         params,
       },
     );
