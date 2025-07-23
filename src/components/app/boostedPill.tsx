@@ -47,7 +47,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
                         $25 balance in wallet
                       </div>
                       <div className="text-[#7CBE6F] font-semibold text-sm">
-                        +${boost.boost}
+                        +{boost.boost}
                       </div>
                     </div>
                   ) : null;
@@ -61,7 +61,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
                         Weekly video uploads
                       </div>
                       <div className="text-[#7CBE6F] font-semibold text-sm">
-                        +${boost.boost}
+                        +{boost.boost}
                       </div>
                     </div>
                   ) : null;
