@@ -3,6 +3,7 @@
 import React from 'react';
 
 import {BoostCard} from '@/components/app/boostCard';
+import {BoostedPill} from "@/components/app/boostedPill";
 import {ExclusionCard} from '@/components/app/exclusionCard';
 import {HowToEarnPill} from '@/components/app/howToEarnPill';
 import {LastWeeksRankPill} from '@/components/app/lastWeeksRankPill';
@@ -18,7 +19,6 @@ import {
 } from '@/lib/queries';
 import {useCreatorRewardsMetadata} from '@/providers/CreatorRewardsMetadataProvider';
 import {useFrameContext} from '@/providers/FrameContextProvider';
-import {BoostedPill} from "@/components/app/boostedPill";
 
 function FormattedTimeWithCountdown({timestamp}: { timestamp: number }) {
     const [time, setTime] = React.useState(timestamp - Date.now());
