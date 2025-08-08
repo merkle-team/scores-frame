@@ -75,7 +75,7 @@ function BoostedPill({ boosts }: { boosts: ApiCreatorRewardBoost[] }) {
                       </div>
                     </div>
                   );
-                case "video-upload":
+               case "video-upload":
                   return (
                     <div
                       className={cn(
