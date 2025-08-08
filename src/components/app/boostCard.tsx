@@ -26,12 +26,12 @@ function BoostCard({ boost }: { boost: ApiCreatorRewardBoost }) {
           <div className="font-semibold text-sm py-0.5">
             {boost.claimed
               ? 'Boost unlocked!'
-              : 'Get an extra boost for sharing videos'}
+              : 'Get an extra boost for swapping'}
           </div>
           <div className="text-muted text-sm">
             {boost.claimed
-              ? `You’re getting +${boost.boost} points for posting videos this week`
-              : `Post a video on Farcaster to earn +${boost.boost} bonus points this week`}
+              ? `You’re getting +${boost.boost} points for swapping this week`
+              : `Swap with your Farcaster wallet to earn a boost`}
           </div>
         </div>
       </Card>
