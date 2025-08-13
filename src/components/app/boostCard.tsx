@@ -63,7 +63,7 @@ function BoostCard({ boost }: { boost: ApiCreatorRewardBoost }) {
           <div className="text-muted text-sm">
             {boost.claimed
               ? `You’re getting +${boost.boost} points for swapping this week`
-              : `Swap with your Farcaster wallet to earn a boost`}
+              : `Swap $100 or more with your Farcaster wallet to earn +${boost.boost} bonus points this week`}
           </div>
         </div>
       </Card>
