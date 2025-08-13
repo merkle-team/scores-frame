@@ -719,10 +719,17 @@ export type ApiCreatorRewardVideoUploadBoost = {
   boost: number;
 };
 
+export type ApiCreatorRewardSwapTransactionBoost = {
+  type: 'swap-transaction',
+  claimed: boolean,
+  boost: number,
+}
+
 export type ApiCreatorRewardBoost =
-  | ApiCreatorRewardPaidInviteBoost
-  | ApiCreatorRewardWalletBalanceBoost
-  | ApiCreatorRewardVideoUploadBoost;
+    | ApiCreatorRewardPaidInviteBoost
+    | ApiCreatorRewardWalletBalanceBoost
+    | ApiCreatorRewardVideoUploadBoost
+    | ApiCreatorRewardSwapTransactionBoost;
 
 export type ApiCreatorRewardsPeriodSummary = {
   periodStartDate: ApiTimestampMillis;
