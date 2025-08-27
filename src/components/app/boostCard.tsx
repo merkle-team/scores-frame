@@ -26,8 +26,6 @@ function BoostCard({ boost }: { boost: ApiCreatorRewardBoost }) {
       </div>
     </Card>
   );
-
-  return null;
 }
 
 function BoostCardContent({ boost }: { boost: ApiCreatorRewardBoost }) {
