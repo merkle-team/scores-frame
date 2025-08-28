@@ -110,9 +110,9 @@ export default function Home() {
           hasPhoneVerification={hasPhoneVerification}
         />
       )}
-      {typeof exclusion === "undefined" &&
-        boosts.length !== 0 &&
-        boosts.map((boost) => <BoostCard key={boost.type} boost={boost} />)}
+      {typeof exclusion === "undefined" && boosts.length !== 0 && (
+        <BoostCard key={boosts[0].type} boost={boosts[0]} />
+      )}
       {exclusion !== "unsupported-region" && !isGeoRestricted && (
         <>
           <Card className="flex flex-col items-center px-4">

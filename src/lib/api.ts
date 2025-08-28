@@ -725,11 +725,18 @@ export type ApiCreatorRewardSwapTransactionBoost = {
   boost: number,
 }
 
+export type ApiCreatorRewardConnectedAddressBalanceBoost = {
+  type: 'connected-address-balance',
+  claimed: boolean,
+  boost: number,
+}
+
 export type ApiCreatorRewardBoost =
     | ApiCreatorRewardPaidInviteBoost
     | ApiCreatorRewardWalletBalanceBoost
     | ApiCreatorRewardVideoUploadBoost
-    | ApiCreatorRewardSwapTransactionBoost;
+    | ApiCreatorRewardSwapTransactionBoost
+    | ApiCreatorRewardConnectedAddressBalanceBoost;
 
 export type ApiCreatorRewardsPeriodSummary = {
   periodStartDate: ApiTimestampMillis;
