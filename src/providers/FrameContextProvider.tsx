@@ -1,4 +1,4 @@
-import sdk from '@farcaster/frame-sdk';
+import sdk from '@farcaster/miniapp-sdk';
 import React from 'react';
 
 import { Loading } from '@/components/ui/loading';
@@ -28,6 +28,7 @@ type FrameContextProviderContextValue = {
   pfpUrl: string | undefined;
   safeAreaInsets?: SafeAreaInsets;
   triggerViewProfile: ({ fid }: { fid: number }) => void;
+  triggerViewCast: ({ hash }: { hash: string }) => void;
 };
 
 const FrameContextProviderContext =
@@ -71,6 +72,18 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
     [frameContext],
   );
 
+  const triggerViewCast = React.useCallback(
+    ({ hash }: { hash: string }) => {
+      if (
+        typeof frameContext !== 'undefined' &&
+        typeof sdk.actions.viewCast === 'function'
+      ) {
+        sdk.actions.viewCast({ hash });
+      }
+    },
+    [frameContext],
+  );
+
   React.useEffect(() => {
     if (typeof frameContext === 'undefined') {
       checkFrameContext();
@@ -92,6 +105,7 @@ function FrameContextProvider({ children }: React.PropsWithChildren) {
         pfpUrl: frameContext.user.pfpUrl,
         safeAreaInsets: frameContext.client.safeAreaInsets,
         triggerViewProfile: triggerViewProfile,
+        triggerViewCast: triggerViewCast,
       }}
     >
       {children}
