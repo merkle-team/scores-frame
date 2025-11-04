@@ -9,6 +9,7 @@ import { HowToEarnPill } from '@/components/app/howToEarnPill';
 import { LastWeeksRankPill } from '@/components/app/lastWeeksRankPill';
 import { RewardsLeaderboard } from '@/components/app/rewardsLeaderboard';
 import { RewardTiersPill } from '@/components/app/rewardTiersPill';
+import { ShootingStarIcon } from '@/components/core/icons';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/cn';
 import { formatScore } from '@/lib/formatters';
@@ -118,10 +119,13 @@ export default function Home() {
             'rounded-full w-8 h-8 items-center justify-center flex shrink-0 text-xs bg-[#454]',
           )}
         >
-          Creator rewards are changing!
+          <ShootingStarIcon />
         </div>
         <div className="flex flex-col items-start justify-start w-full relative">
-          Tap here to learn more.
+          <div className="font-semibold text-sm py-0.5">
+            Creator rewards are changing!
+          </div>
+          <div className="text-muted text-sm">Tap here to learn more.</div>
         </div>
       </Card>
       {(typeof exclusion !== 'undefined' || isGeoRestricted) && (
